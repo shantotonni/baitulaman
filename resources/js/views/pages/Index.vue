@@ -76,7 +76,7 @@
             <h5 class="modal-title mt-0" id="myLargeModalLabel">{{ editMode ? "Edit" : "Add" }} Page</h5>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true" @click="closeModal">×</button>
           </div>
-          <form @submit.prevent="editMode ? update() : store()" @keydown="form.onKeydown($event)">
+          <form @submit.prevent="editMode ? update() : store()" @keydown="form.onKeydown($event)" >
             <div class="modal-body">
               <div class="col-md-12">
                 <div class="row">
@@ -91,7 +91,7 @@
                     <div class="form-group">
                       <div class="form-group">
                         <label>Body</label>
-                        <textarea class="summernote" v-model="form.body"></textarea>
+                        <textarea class="summernote" name="body" v-model="form.body" ></textarea>
                         <div class="error" v-if="form.errors.has('body')" v-html="form.errors.get('body')"/>
                       </div>
                     </div>
@@ -127,6 +127,7 @@ export default {
         id :'',
         title :'',
         body :'',
+
       }),
     }
   },
