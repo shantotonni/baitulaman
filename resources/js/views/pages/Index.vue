@@ -91,7 +91,7 @@
                     <div class="form-group">
                       <div class="form-group">
                         <label>Body</label>
-                        <vue-editor name="body" v-model="form.body" :class="{ 'is-invalid': form.errors.has('body') }"></vue-editor>
+                        <ckeditor v-model="editorData" :config="editorConfig"></ckeditor>
                         <div class="error" v-if="form.errors.has('body')" v-html="form.errors.get('body')"/>
                       </div>
                     </div>
@@ -112,17 +112,24 @@
 
 <script>
 import {baseurl} from '../../base_url'
-import {VueEditor} from "vue2-editor";
+import Vue from 'vue';
+import CKEditor from 'ckeditor4-vue';
+
+Vue.use( CKEditor );
 
 export default {
   components: {
-    VueEditor
+    ckeditor: CKEditor.component
   },
   data() {
     return {
       pages: [],
       pagination: {
         current_page: 1
+      },
+      editorData: '<p>Content of the editor.</p>',
+      editorConfig: {
+        // The configuration of the editor.
       },
       query: "",
       editMode: false,

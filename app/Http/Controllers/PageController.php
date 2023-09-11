@@ -38,6 +38,13 @@ class PageController extends Controller
 
         return response()->json(['message','Page updated successfully',200]);
     }
+    public function show($slug)
+    {
+        $pages = Page::all();
+        $page = Page::whereSlug($slug)->first();
+
+        return response()->view('details', compact('pages', 'page'));
+    }
 
     public function destroy(Page $page)
     {
