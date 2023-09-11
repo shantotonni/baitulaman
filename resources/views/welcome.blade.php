@@ -11,7 +11,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mulish&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/chartist/css/chartist.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/plugins/chartist/css/chartist.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote-bs4.css') }}" />
     <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('assets/css/metismenu.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('assets/css/icons.css')}}" rel="stylesheet" type="text/css">
@@ -97,6 +98,9 @@
 <script src="{{asset('assets/plugins/peity-chart/jquery.peity.min.js')}}"></script>
 <script src="{{ asset('assets/plugins/jquery-repeater/jquery.repeater.min.js') }}"></script>
 <script src="{{ asset('assets/pages/form-repeater.int.js') }}"></script>
+<!--Summernote js-->
+<script src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
+<script src="{{ asset('assets/pages/form-editors.int.js') }}"></script>
 
 <!-- App js -->
 <script src="{{ asset('js/app.js') }}" defer></script>
