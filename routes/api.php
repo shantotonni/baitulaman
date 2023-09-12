@@ -18,6 +18,8 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\StudentBillController;
 use App\Http\Controllers\StudentBillPaymentController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\WebMenuController;
+use App\Http\Controllers\WebSubMenuController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\AuthController;
 use \App\Http\Controllers\SessionsController;
@@ -70,8 +72,16 @@ Route::group(['middleware' => ['jwt:api']], function () {
     //customer
     Route::apiResource('customers',CustomerController::class);
     Route::get('search/customers/{query}', [CustomerController::class,'search']);
-    //customer
+    //web menu
+    Route::apiResource('web-menu',WebMenuController::class);
+    Route::get('search/web-menu/{query}', [WebMenuController::class,'search']);
+    //web sub menu
+    Route::apiResource('web-sub-menu',WebSubMenuController::class);
+    Route::get('search/web-sub-menu/{query}', [WebSubMenuController::class,'search']);
+
+    //pages
     Route::apiResource('pages',PageController::class);
+    Route::get('page-details/{$id}',[PageController::class,'show']);
     Route::get('search/pages/{query}', [PageController::class,'search']);
 
     //menu resource route

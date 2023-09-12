@@ -46,6 +46,7 @@
                       <td class="text-left">{{ page.slug }}</td>
                       <td class="text-left" v-html="page.body "></td>
                       <td class="text-center">
+                        <router-link :to="`page-details/${page.id}`" class="btn btn-primary btn-sm btn-xs"><i class="far fa-eye"></i></router-link>
                         <button @click="edit(page)" class="btn btn-success btn-sm">
                           <i
                               class="far fa-edit"></i></button>
@@ -91,7 +92,7 @@
                     <div class="form-group">
                       <div class="form-group">
                         <label>Body</label>
-                        <textarea class="summernote" name="body" v-model="form.body"  ></textarea>
+                        <vue-editor name="body" v-model="form.body" :class="{ 'is-invalid': form.errors.has('body') }"></vue-editor>
                         <div class="error" v-if="form.errors.has('body')" v-html="form.errors.get('body')"/>
                       </div>
                     </div>
@@ -112,8 +113,12 @@
 
 <script>
 import {baseurl} from '../../base_url'
+import {VueEditor} from "vue2-editor";
 
 export default {
+  components: {
+    VueEditor
+  },
   data() {
     return {
       pages: [],

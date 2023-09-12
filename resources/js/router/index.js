@@ -11,7 +11,10 @@ import SliderList from '../views/slider/Index'
 import EventList from '../views/event/Index'
 import ProgramList from '../views/program/Index'
 import CustomerList from '../views/customer/Index'
+import WebMenu from '../views/web_menu/Index'
+import SubMenu from '../views/sub_menu/Index'
 import PageList from '../views/pages/Index'
+import PageDetails from '../views/pages/Details.vue'
 
 
 import NotFound from '../views/404/Index';
@@ -67,13 +70,24 @@ const routes = [
             {path: baseurl + 'slider-list', name: 'SliderList', component: SliderList},
             //event
             {path: baseurl + 'event-list', name: 'EventList', component: EventList},
-            //event
+            //program
             {path: baseurl + 'program-list', name: 'ProgramList', component: ProgramList},
-            //event
+            //customer
             {path: baseurl + 'customer-list', name: 'CustomerList', component: CustomerList},
+            //Submenu
+            {path: baseurl + 'web-sub-menu', name: 'SubMenu', component: SubMenu},
+            //Webmenu
+            {path: baseurl + 'web-menu', name: 'WebMenu', component: WebMenu},
+
+
+
+
             //pages
             {path: baseurl + 'page-list', name: 'PageList', component: PageList},
-        ],
+            //page details
+            {path: baseurl + 'page-details/:id', name: 'PageDetails', component: PageDetails},
+
+],
         beforeEnter(to, from, next) {
             checkToken(to, from, next);
         }

@@ -38,19 +38,25 @@ class PageController extends Controller
 
         return response()->json(['message','Page updated successfully',200]);
     }
-    public function show($slug)
+    public function show( Request $request,Page $id)
     {
-        $pages = Page::all();
-        $page = Page::whereSlug($slug)->first();
+        $pages = Page::findOrFail($id)->get();
+return $request->all();
+        return new PageCollection($pages);
+//        return view('pages.Details', compact('pages'));
 
-        return response()->view('details', compact('pages', 'page'));
     }
 
     public function destroy(Page $page)
     {
         $page->delete();
-
         return response()
             ->json(['message','Page deleted successfully',200]);
+    }
+
+    public function search($query)
+    {
+        return new PageCollection(Page::Where('title', 'like', "%$query%")
+            ->paginate(10));
     }
 }
