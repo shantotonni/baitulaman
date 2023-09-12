@@ -24,10 +24,10 @@ class PageController extends Controller
 
         Page::create($input);
 
-        return response()->json(['message','Page created successfully.',200]);
+        return response()->json(['message', 'Page created successfully.', 200]);
     }
 
-    public function update(Request $request, Page $page)
+    public function update(PageStoreRequest $request, Page $page)
     {
 
         $input = $request->all();
@@ -36,12 +36,13 @@ class PageController extends Controller
 
         $page->update($input);
 
-        return response()->json(['message','Page updated successfully',200]);
+        return response()->json(['message', 'Page updated successfully', 200]);
     }
-    public function show( Request $request,Page $id)
+
+    public function show(Request $request, Page $id)
     {
-        $pages = Page::findOrFail($id)->get();
-return $request->all();
+
+        $pages = Page::find($id);
         return new PageCollection($pages);
 //        return view('pages.Details', compact('pages'));
 
@@ -51,7 +52,7 @@ return $request->all();
     {
         $page->delete();
         return response()
-            ->json(['message','Page deleted successfully',200]);
+            ->json(['message', 'Page deleted successfully', 200]);
     }
 
     public function search($query)

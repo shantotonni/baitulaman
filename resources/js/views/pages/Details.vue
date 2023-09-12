@@ -10,13 +10,26 @@
                                 <div class="tab-pane p-3 active" id="home-1" role="tabpanel">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="table-responsive">
+                                          <div class="table-responsive">
+                                            <table class="table table-bordered table-striped dt-responsive nowrap dataTable no-footer dtr-inline table-sm small">
+                                              <thead>
                                               <tr>
+                                                <th>Page Name</th>
+                                                <th>Slug</th>
+                                                <th>Body</th>
+                                              </tr>
+                                              </thead>
+                                              <tbody>
+                                              <tr >
                                                 <td class="text-left">{{ pages.title }}</td>
                                                 <td class="text-left">{{ pages.slug }}</td>
                                                 <td class="text-left" v-html="pages.body "></td>
                                               </tr>
-                                            </div>
+                                              </tbody>
+                                            </table>
+                                            <br>
+
+                                          </div>
                                         </div>
                                     </div>
                                 </div>
@@ -27,11 +40,8 @@
             </div>
         </div>
     </div>
-
 </template>
-
 <script>
-
 export default {
     name: "List",
     data() {

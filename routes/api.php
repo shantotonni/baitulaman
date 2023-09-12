@@ -81,7 +81,7 @@ Route::group(['middleware' => ['jwt:api']], function () {
 
     //pages
     Route::apiResource('pages',PageController::class);
-    Route::get('page-details/{$id}',[PageController::class,'show']);
+    Route::get('page-details/{id}',[PageController::class,'show']);
     Route::get('search/pages/{query}', [PageController::class,'search']);
 
     //menu resource route
