@@ -91,7 +91,7 @@
                     <div class="form-group">
                       <div class="form-group">
                         <label>Body</label>
-                        <textarea class="summernote" name="body" v-model="form.body" ></textarea>
+                        <textarea class="summernote" name="body" v-model="form.body"  ></textarea>
                         <div class="error" v-if="form.errors.has('body')" v-html="form.errors.get('body')"/>
                       </div>
                     </div>
