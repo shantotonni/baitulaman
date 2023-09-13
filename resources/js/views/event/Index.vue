@@ -46,11 +46,11 @@
                         v-if="events.length">
                       <th class="text-center" scope="row">{{ ++i }}</th>
                       <td class="text-left">{{ event.title }}</td>
-                      <td class="text-left" v-html="event.description "></td>
-                      <td class="text-left">{{ event.event_date }}</td>
+                      <td class="text-left" style="width: 30%" v-html="event.description "></td>
+                      <td class="text-right">{{ event.event_date }}</td>
                       <td class="text-right">{{ event.ordering }}</td>
                       <td class="text-left">{{ event.status }}</td>
-                      <td class="text-left">
+                      <td class="text-center">
                         <img v-if="event.image" height="40" width="40"
                              :src="tableImage(event.image)" alt="">
                       </td>

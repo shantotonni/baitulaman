@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HeadController;
 use App\Http\Controllers\HostelFeeController;
+use App\Http\Controllers\ImamController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\MenuPermissionController;
 use App\Http\Controllers\MiscellaniousController;
@@ -18,6 +20,8 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\StudentBillController;
 use App\Http\Controllers\StudentBillPaymentController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\WebMenuController;
+use App\Http\Controllers\WebSubMenuController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\AuthController;
 use \App\Http\Controllers\SessionsController;
@@ -70,10 +74,23 @@ Route::group(['middleware' => ['jwt:api']], function () {
     //customer
     Route::apiResource('customers',CustomerController::class);
     Route::get('search/customers/{query}', [CustomerController::class,'search']);
-    //customer
-    Route::apiResource('pages',PageController::class);
-    Route::get('search/pages/{query}', [PageController::class,'search']);
+    //web menu
+    Route::apiResource('web-menu',WebMenuController::class);
+    Route::get('search/web-menu/{query}', [WebMenuController::class,'search']);
+    //web sub menu
+    Route::apiResource('web-sub-menu',WebSubMenuController::class);
+    Route::get('search/web-sub-menu/{query}', [WebSubMenuController::class,'search']);
 
+    //pages
+    Route::apiResource('pages',PageController::class);
+    Route::get('page-details/{id}',[PageController::class,'show']);
+    Route::get('search/pages/{query}', [PageController::class,'search']);
+    //imam
+    Route::apiResource('imams',ImamController::class);
+    Route::get('search/imams/{query}', [ImamController::class,'search']);
+    //BLOG
+    Route::apiResource('blogs',BlogController::class);
+    Route::get('search/blogs/{query}', [BlogController::class,'search']);
     //menu resource route
     Route::apiResource('menu', MenuController::class);
     Route::get('search/menu/{query}', [MenuController::class,'search']);
