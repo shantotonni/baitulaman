@@ -81,6 +81,16 @@ class ImamController extends Controller
         ],200);
 
     }
+    public function show($id)
+    {
+        $imams = Imam::where('id', $id)->first();
+        return response()->json([
+            'data'=>$imams
+        ]);
+//        return new PageResource($pages);
+//        return view('pages.Details', compact('pages'));
+
+    }
 
     public function destroy($id)
     {

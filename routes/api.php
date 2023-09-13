@@ -87,6 +87,7 @@ Route::group(['middleware' => ['jwt:api']], function () {
     Route::get('search/pages/{query}', [PageController::class,'search']);
     //imam
     Route::apiResource('imams',ImamController::class);
+    Route::get('imam-details/{id}',[ImamController::class,'show']);
     Route::get('search/imams/{query}', [ImamController::class,'search']);
     //BLOG
     Route::apiResource('blogs',BlogController::class);
