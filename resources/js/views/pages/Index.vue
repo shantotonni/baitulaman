@@ -33,7 +33,7 @@
                         <th>SN</th>
                         <th>Page Name</th>
                         <th>Slug</th>
-                        <th>Body</th>
+<!--                        <th>Body</th>-->
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -44,14 +44,10 @@
                       <th class="text-center" scope="row">{{ ++i }}</th>
                       <td class="text-left">{{ page.title }}</td>
                       <td class="text-left">{{ page.slug }}</td>
-                      <td class="text-left" v-html="page.body "></td>
+<!--                      <td class="text-left" v-html="page.body "></td>-->
                       <td class="text-center">
-                        <button @click="edit(page)" class="btn btn-success btn-sm">
-                          <i
-                              class="far fa-edit"></i></button>
-                        <button @click="destroy(page.id)"
-                                class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>
-                        </button>
+                        <button @click="edit(page)" class="btn btn-success btn-sm"><i class="far fa-edit"></i></button>
+                        <button @click="destroy(page.id)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                       </td>
                     </tr>
                     </tbody>
@@ -91,7 +87,8 @@
                     <div class="form-group">
                       <div class="form-group">
                         <label>Body</label>
-                        <textarea class="summernote" name="body" v-model="form.body" ></textarea>
+<!--                        <textarea class="summernote" name="body" v-model="AreaData"></textarea>-->
+                        <ckeditor  value="sdsdasd"></ckeditor>
                         <div class="error" v-if="form.errors.has('body')" v-html="form.errors.get('body')"/>
                       </div>
                     </div>
@@ -120,6 +117,7 @@ export default {
       pagination: {
         current_page: 1
       },
+      AreaData : '',
       query: "",
       editMode: false,
       isLoading: false,
@@ -127,7 +125,6 @@ export default {
         id :'',
         title :'',
         body :'',
-
       }),
     }
   },
@@ -138,6 +135,9 @@ export default {
       } else {
         this.searchData();
       }
+    },
+    AreaData: (val) => {
+      this.form.body = $('.summernote').summernote("code", val);
     }
   },
   mounted() {

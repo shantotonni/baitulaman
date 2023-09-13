@@ -1,4 +1,3 @@
-
 require('./bootstrap');
 require('./validation/index');
 
@@ -7,6 +6,10 @@ import App from './views/App'
 import router from './router/index';
 import store from './store/index'
 import {baseurl} from './base_url'
+
+//import ckeditor
+import CKEditor from 'ckeditor4-vue'
+Vue.use(CKEditor)
 
 //import v-form
 import { Form } from 'vform'
