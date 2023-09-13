@@ -33,7 +33,6 @@
                         <th>SN</th>
                         <th>Page Name</th>
                         <th>Slug</th>
-                        <th>Body</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -44,7 +43,6 @@
                       <th class="text-center" scope="row">{{ ++i }}</th>
                       <td class="text-left">{{ page.title }}</td>
                       <td class="text-left">{{ page.slug }}</td>
-                      <td class="text-left" v-html="page.body "></td>
                       <td class="text-center">
                         <router-link :to="`page-details/${page.id}`" class="btn btn-primary btn-sm btn-xs"><i class="far fa-eye"></i></router-link>
                         <button @click="edit(page)" class="btn btn-success btn-sm">

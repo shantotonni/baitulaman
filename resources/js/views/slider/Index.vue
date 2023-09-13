@@ -46,7 +46,7 @@
                         v-if="sliders.length">
                       <th class="text-center" scope="row">{{ ++i }}</th>
                       <td class="text-left">{{ slider.title }}</td>
-                      <td class="text-left" v-html="slider.paragraph "></td>
+                      <td class="text-left" style="width: 30%"  v-html="slider.paragraph "></td>
                       <td class="text-left">{{ slider.link }}</td>
                       <td class="text-right">{{ slider.ordering }}</td>
                       <td class="text-left">{{ slider.status }}</td>

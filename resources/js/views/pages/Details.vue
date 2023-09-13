@@ -1,49 +1,42 @@
 <template>
-    <div class="content">
-        <div class="container-fluid">
-            <breadcrumb :options="['Details']"/>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="tab-content">
-                                <div class="tab-pane p-3 active" id="home-1" role="tabpanel">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                          <div class="table-responsive">
-                                            <table class="table table-bordered table-striped dt-responsive nowrap dataTable no-footer dtr-inline table-sm small">
-                                              <thead>
-                                              <tr>
-                                                <th>Page Name</th>
-                                                <th>Slug</th>
-                                                <th>Body</th>
-                                              </tr>
-                                              </thead>
-                                              <tbody>
-                                              <tr >
-                                                <td class="text-left">{{ pages.title }}</td>
-                                                <td class="text-left">{{ pages.slug }}</td>
-                                                <td class="text-left" v-html="pages.body "></td>
-                                              </tr>
-                                              </tbody>
-                                            </table>
-                                            <br>
+  <div class="content">
+    <div class="container-fluid">
+      <breadcrumb :options="['Page Details']"/>
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card">
+            <div class="datatable" v-if="!isLoading">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-striped dt-responsive nowrap dataTable no-footer dtr-inline table-sm small">
+                    <thead>
+                    <tr>
+                      <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td class="text-center" v-html="pages.body"></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  <br>
 
-                                          </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+              </div>
             </div>
+            <div v-else>
+              <skeleton-loader :row="14"/>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </template>
 <script>
 export default {
-    name: "List",
+    name: "Details",
     data() {
       return {
         pages: [],
@@ -67,6 +60,9 @@ export default {
   mounted() {
     document.title = 'Page Details | Baitulaman';
     this.getPageDetails();
+  },
+  created(){
+     this.getPageDetails();
   },
     methods: {
         getPageDetails(){

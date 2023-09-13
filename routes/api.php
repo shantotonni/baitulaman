@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HeadController;
 use App\Http\Controllers\HostelFeeController;
+use App\Http\Controllers\ImamController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\MenuPermissionController;
 use App\Http\Controllers\MiscellaniousController;
@@ -83,7 +85,12 @@ Route::group(['middleware' => ['jwt:api']], function () {
     Route::apiResource('pages',PageController::class);
     Route::get('page-details/{id}',[PageController::class,'show']);
     Route::get('search/pages/{query}', [PageController::class,'search']);
-
+    //imam
+    Route::apiResource('imams',ImamController::class);
+    Route::get('search/imams/{query}', [ImamController::class,'search']);
+    //BLOG
+    Route::apiResource('blogs',BlogController::class);
+    Route::get('search/blogs/{query}', [BlogController::class,'search']);
     //menu resource route
     Route::apiResource('menu', MenuController::class);
     Route::get('search/menu/{query}', [MenuController::class,'search']);

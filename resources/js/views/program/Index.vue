@@ -45,10 +45,10 @@
                         v-if="programs.length">
                       <th class="text-center" scope="row">{{ ++i }}</th>
                       <td class="text-left">{{ program.title }}</td>
-                      <td class="text-left" v-html="program.description "></td>
+                      <td class="text-left" style="width: 30%"  v-html="program.description "></td>
                       <td class="text-right">{{ program.ordering }}</td>
                       <td class="text-left">{{ program.status }}</td>
-                      <td class="text-left">
+                      <td class="text-center">
                         <img v-if="program.image" height="40" width="40"
                              :src="tableImage(program.image)" alt="">
                       </td>

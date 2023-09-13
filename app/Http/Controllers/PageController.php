@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Page\PageStoreRequest;
 use App\Http\Resources\Page\PageCollection;
+use App\Http\Resources\Page\PageResource;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -39,11 +40,14 @@ class PageController extends Controller
         return response()->json(['message', 'Page updated successfully', 200]);
     }
 
-    public function show(Request $request, Page $id)
+    public function show($id)
     {
 
-        $pages = Page::find($id);
-        return new PageCollection($pages);
+        $pages = Page::Where('id',$id)->first();
+        return response()->json([
+           'data'=>$pages
+        ]);
+//        return new PageResource($pages);
 //        return view('pages.Details', compact('pages'));
 
     }
