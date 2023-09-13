@@ -87,9 +87,6 @@ class ImamController extends Controller
         return response()->json([
             'data'=>$imams
         ]);
-//        return new PageResource($pages);
-//        return view('pages.Details', compact('pages'));
-
     }
 
     public function destroy($id)
