@@ -32,11 +32,10 @@
                       <tr>
                         <th>SN</th>
                         <th>Event Name</th>
-                        <th>Description</th>
+                        <th>Image</th>
                         <th>Event Date</th>
                         <th>Order</th>
                         <th>Status</th>
-                        <th>Image</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -46,15 +45,16 @@
                         v-if="events.length">
                       <th class="text-center" scope="row">{{ ++i }}</th>
                       <td class="text-left">{{ event.title }}</td>
-                      <td class="text-left" style="width: 30%" v-html="event.description "></td>
-                      <td class="text-right">{{ event.event_date }}</td>
-                      <td class="text-right">{{ event.ordering }}</td>
-                      <td class="text-left">{{ event.status }}</td>
                       <td class="text-center">
                         <img v-if="event.image" height="40" width="40"
                              :src="tableImage(event.image)" alt="">
                       </td>
+                      <td class="text-right">{{ event.event_date }}</td>
+                      <td class="text-right">{{ event.ordering }}</td>
+                      <td class="text-left">{{ event.status }}</td>
                       <td class="text-center">
+                        <router-link :to="`event-details/${event.id}`" class="btn btn-primary btn-sm btn-xs"><i class="far fa-eye"></i></router-link>
+
                         <button @click="edit(event)" class="btn btn-success btn-sm">
                           <i
                               class="far fa-edit"></i></button>
@@ -151,7 +151,7 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <div class="form-group">
-                        <label>description</label>
+                        <label>Description</label>
                         <vue-editor name="description" v-model="form.description" :class="{ 'is-invalid': form.errors.has('description') }"></vue-editor>
                         <div class="error" v-if="form.errors.has('description')" v-html="form.errors.get('description')"/>
                       </div>

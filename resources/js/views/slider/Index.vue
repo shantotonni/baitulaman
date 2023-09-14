@@ -32,11 +32,9 @@
                       <tr>
                         <th>SN</th>
                         <th>Slider Name</th>
-                        <th>Paragraph</th>
-                        <th>Link</th>
+                        <th>Image</th>
                         <th>Order</th>
                         <th>Status</th>
-                        <th>Image</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -46,15 +44,15 @@
                         v-if="sliders.length">
                       <th class="text-center" scope="row">{{ ++i }}</th>
                       <td class="text-left">{{ slider.title }}</td>
-                      <td class="text-left" style="width: 30%"  v-html="slider.paragraph "></td>
-                      <td class="text-left">{{ slider.link }}</td>
-                      <td class="text-right">{{ slider.ordering }}</td>
-                      <td class="text-left">{{ slider.status }}</td>
                       <td class="text-left">
                         <img v-if="slider.image" height="40" width="40"
                              :src="tableImage(slider.image)" alt="">
                       </td>
+                      <td class="text-right">{{ slider.ordering }}</td>
+                      <td class="text-left">{{ slider.status }}</td>
                       <td class="text-center">
+                        <router-link :to="`slider-details/${slider.id}`" class="btn btn-primary btn-sm btn-xs"><i class="far fa-eye"></i></router-link>
+
                         <button @click="edit(slider)" class="btn btn-success btn-sm">
                           <i
                               class="far fa-edit"></i></button>

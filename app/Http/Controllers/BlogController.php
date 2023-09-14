@@ -68,7 +68,13 @@ class BlogController extends Controller
             'message' => 'Blog Info Updated Successfully'
         ],200);
     }
-
+    public function show($id)
+    {
+        $blog = Blog::where('id', $id)->first();
+        return response()->json([
+            'data'=>$blog
+        ]);
+    }
     public function destroy($id)
     {
         $blog = Blog::where('id', $id)->first();

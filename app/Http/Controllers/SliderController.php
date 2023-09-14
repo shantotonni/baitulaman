@@ -75,7 +75,14 @@ class SliderController extends Controller
         $slider->save();
         return response()->json(['message'=>'Slider Updated Successfully'],200);
     }
+    public function show($id)
+    {
+        $slider = Slider::Where('id',$id)->first();
+        return response()->json([
+            'data'=>$slider
+        ]);
 
+    }
     public function destroy($id)
     {
         $slider = Slider::where('id', $id)->first();

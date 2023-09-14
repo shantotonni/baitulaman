@@ -32,10 +32,10 @@
                       <tr>
                         <th>SN</th>
                         <th>Program Name</th>
-                        <th>Description</th>
+                        <th>Image</th>
                         <th>Order</th>
                         <th>Status</th>
-                        <th>Image</th>
+
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -45,14 +45,16 @@
                         v-if="programs.length">
                       <th class="text-center" scope="row">{{ ++i }}</th>
                       <td class="text-left">{{ program.title }}</td>
-                      <td class="text-left" style="width: 30%"  v-html="program.description "></td>
+                      <td class="text-center">
+                      <img v-if="program.image" height="40" width="40"
+                           :src="tableImage(program.image)" alt="">
+                    </td>
                       <td class="text-right">{{ program.ordering }}</td>
                       <td class="text-left">{{ program.status }}</td>
+
                       <td class="text-center">
-                        <img v-if="program.image" height="40" width="40"
-                             :src="tableImage(program.image)" alt="">
-                      </td>
-                      <td class="text-center">
+                        <router-link :to="`program-details/${program.id}`" class="btn btn-primary btn-sm btn-xs"><i class="far fa-eye"></i></router-link>
+
                         <button @click="edit(program)" class="btn btn-success btn-sm">
                           <i
                               class="far fa-edit"></i></button>

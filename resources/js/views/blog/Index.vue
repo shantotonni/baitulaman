@@ -32,7 +32,6 @@
                       <tr>
                         <th>SN</th>
                         <th>Title</th>
-                        <th>Description</th>
                         <th>Image</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -44,7 +43,6 @@
                         v-if="blogs.length">
                       <th class="text-center" scope="row">{{ ++i }}</th>
                       <td class="text-left">{{ blog.title }}</td>
-                      <td class="text-left" style="width: 30%" v-html="blog.description "></td>
                       <td class="text-center">
                         <img v-if="blog.image" height="40" width="40"
                              :src="tableImage(blog.image)" alt="">
@@ -52,6 +50,8 @@
                       <td class="text-left">{{ blog.status }}</td>
 
                       <td class="text-center">
+                        <router-link :to="`blog-details/${blog.id}`" class="btn btn-primary btn-sm btn-xs"><i class="far fa-eye"></i></router-link>
+
                         <button @click="edit(blog)" class="btn btn-success btn-sm">
                           <i
                               class="far fa-edit"></i></button>

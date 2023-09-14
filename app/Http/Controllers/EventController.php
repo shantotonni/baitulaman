@@ -73,6 +73,14 @@ class EventController extends Controller
         $event->save();
         return response()->json(['message'=>'event Updated Successfully'],200);
     }
+    public function show($id){
+
+        $events = Event::Where('id',$id)->first();
+        return response()->json([
+            'data'=>$events
+        ]);
+
+    }
 
     public function destroy($id)
     {

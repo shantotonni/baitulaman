@@ -8,8 +8,11 @@ import UserList from '../views/users/Index'
 import MenuList from '../views/menu/List'
 import MenuPermission from '../views/users/MenuPermission'
 import SliderList from '../views/slider/Index'
+import SliderDetails from '../views/slider/Details.vue'
 import EventList from '../views/event/Index'
+import EventDetails from '../views/event/Details.vue'
 import ProgramList from '../views/program/Index'
+import ProgramDetails from '../views/program/Details.vue'
 import CustomerList from '../views/customer/Index'
 import WebMenu from '../views/web_menu/Index'
 import SubMenu from '../views/sub_menu/Index'
@@ -18,6 +21,9 @@ import PageDetails from '../views/pages/Details.vue'
 import OurImam from '../views/our_imam/Index.vue'
 import OurImamDetails from '../views/our_imam/Details.vue'
 import Blog from '../views/blog/Index.vue'
+import BlogDetails from '../views/blog/Details.vue'
+import VolunteerList from '../views/volunteer/Index.vue'
+import VolunteerDetails from '../views/volunteer/Details.vue'
 
 import NotFound from '../views/404/Index';
 import {baseurl} from '../base_url'
@@ -68,25 +74,39 @@ const routes = [
             //menu vue route
             {path: baseurl + 'menu-list', name: 'MenuList', component: MenuList},
             {path: baseurl + 'user-menu-permission', name: 'UserMenuPermission', component: MenuPermission},
+
             //slider
             {path: baseurl + 'slider-list', name: 'SliderList', component: SliderList},
+            {path: baseurl + 'slider-details/:id', name: 'SliderDetails', component: SliderDetails},
+
             //event
             {path: baseurl + 'event-list', name: 'EventList', component: EventList},
+            {path: baseurl + 'event-details/:id', name: 'EventDetails', component: EventDetails},
+
             //program
             {path: baseurl + 'program-list', name: 'ProgramList', component: ProgramList},
+            {path: baseurl + 'program-details/:id', name: 'ProgramDetails', component: ProgramDetails},
+
             //customer
             {path: baseurl + 'customer-list', name: 'CustomerList', component: CustomerList},
+
             //Submenu
             {path: baseurl + 'web-sub-menu', name: 'SubMenu', component: SubMenu},
+
             //Webmenu
             {path: baseurl + 'web-menu', name: 'WebMenu', component: WebMenu},
+
             //imam
             {path: baseurl + 'our-imam', name: 'OurImam', component: OurImam},
             {path: baseurl + 'imam-details/:id', name: 'OurImamDetails', component: OurImamDetails},
 
+             //volunteer
+            {path: baseurl + 'volunteer-list', name: 'VolunteerList', component: VolunteerList},
+            {path: baseurl + 'volunteer-details/:id', name: 'VolunteerDetails', component: VolunteerDetails},
+
             //Blog
             {path: baseurl + 'blog', name: 'Blog', component: Blog},
-
+            {path: baseurl + 'blog-details/:id', name: 'BlogDetails', component: BlogDetails},
 
 
 

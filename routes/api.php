@@ -20,6 +20,7 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\StudentBillController;
 use App\Http\Controllers\StudentBillPaymentController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\WebMenuController;
 use App\Http\Controllers\WebSubMenuController;
 use Illuminate\Support\Facades\Route;
@@ -63,14 +64,19 @@ Route::group(['middleware' => ['jwt:api']], function () {
 
 //Slider
     Route::apiResource('sliders',SliderController::class);
+    Route::get('slider-details/{id}',[SliderController::class,'show']);
     Route::get('search/sliders/{query}', [SliderController::class,'search']);
+
     //event
     Route::apiResource('events',EventController::class);
+    Route::get('event-details/{id}',[EventController::class,'show']);
     Route::get('search/events/{query}', [EventController::class,'search']);
 
     //program
     Route::apiResource('programs',ProgramController::class);
+    Route::get('program-details/{id}',[ProgramController::class,'show']);
     Route::get('search/programs/{query}', [ProgramController::class,'search']);
+
     //customer
     Route::apiResource('customers',CustomerController::class);
     Route::get('search/customers/{query}', [CustomerController::class,'search']);
@@ -85,13 +91,22 @@ Route::group(['middleware' => ['jwt:api']], function () {
     Route::apiResource('pages',PageController::class);
     Route::get('page-details/{id}',[PageController::class,'show']);
     Route::get('search/pages/{query}', [PageController::class,'search']);
+
     //imam
     Route::apiResource('imams',ImamController::class);
     Route::get('imam-details/{id}',[ImamController::class,'show']);
     Route::get('search/imams/{query}', [ImamController::class,'search']);
+
     //BLOG
     Route::apiResource('blogs',BlogController::class);
+    Route::get('blog-details/{id}',[BlogController::class,'show']);
     Route::get('search/blogs/{query}', [BlogController::class,'search']);
+
+    //volunteer
+    Route::apiResource('volunteers',VolunteerController::class);
+    Route::get('volunteer-details/{id}',[VolunteerController::class,'show']);
+    Route::get('search/blogs/{query}', [VolunteerController::class,'search']);
+
     //menu resource route
     Route::apiResource('menu', MenuController::class);
     Route::get('search/menu/{query}', [MenuController::class,'search']);

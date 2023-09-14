@@ -71,7 +71,14 @@ class ProgramController extends Controller
         $program->save();
         return response()->json(['message'=>'Program Updated Successfully'],200);
     }
+    public function show($id){
 
+        $program = Program::Where('id',$id)->first();
+        return response()->json([
+            'data'=>$program
+        ]);
+
+    }
     public function destroy($id)
     {
         $program = Program::where('id', $id)->first();
