@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Volunteer\VolunteerStoreRequest;
 use App\Http\Resources\Volunteer\VolunteerCollection;
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class VolunteerController extends Controller
         return new VolunteerCollection($volunteerS);
     }
 
-    public function store(Request $request)
+    public function store(VolunteerStoreRequest $request)
     {
         if ($request->has('image')) {
             $image = $request->image;
