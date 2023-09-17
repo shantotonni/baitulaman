@@ -51,13 +51,6 @@ Route::group(['middleware' => ['jwt:api']], function () {
     Route::apiResource('users',UserController::class);
     Route::get('search/users/{query}', [UserController::class,'search']);
     Route::get('get-all-users/', [UserController::class, 'getAllUser']);
-    //Head MODULE
-    Route::group(['prefix' => 'head'],function () {
-        Route::post('list',[HeadController::class,'index']);
-        Route::post('create',[HeadController::class,'store']);
-        Route::post('update/{id}',[HeadController::class,'update']);
-        Route::get('by-id/{id}',[HeadController::class,'byId']);
-    });
 
     Route::apiResource('student',StudentController::class);
     Route::get('search/student/{query}', [StudentController::class,'search']);
@@ -138,4 +131,14 @@ Route::group(['middleware' => ['jwt:api']], function () {
 
     Route::get('get-all-session', [CommonController::class,'getAllSession']);
 
+//    Route::group(['middleware' => 'CustomerAuth'], function () {
+//        Route::get('get-youth-club', [\App\Http\Controllers\Api\Frontend\PagesController::class, 'youthClub']);
+//    });
+
 });
+
+//For Frontend
+Route::get('get-youth-club', [\App\Http\Controllers\Api\Frontend\PagesController::class, 'youthClub']);
+Route::get('get-maktab-curriculum', [\App\Http\Controllers\Api\Frontend\PagesController::class, 'maktabCurriculum']);
+Route::get('get-about', [\App\Http\Controllers\Api\Frontend\PagesController::class, 'getAbout']);
+Route::get('get-objectives', [\App\Http\Controllers\Api\Frontend\PagesController::class, 'getObjectives']);
