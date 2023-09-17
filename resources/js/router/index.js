@@ -24,6 +24,11 @@ import Blog from '../views/blog/Index.vue'
 import BlogDetails from '../views/blog/Details.vue'
 import VolunteerList from '../views/volunteer/Index.vue'
 import VolunteerDetails from '../views/volunteer/Details.vue'
+import AdvisorsBoard from '../views/advisors_board/Index.vue'
+import ShuraCommitee from '../views/shura_committee/Index.vue'
+import ProgramSchedule from '../views/program_schedule/Index.vue'
+import RamadanCalendar from '../views/ramadan/Index.vue'
+
 
 import NotFound from '../views/404/Index';
 import {baseurl} from '../base_url'
@@ -108,12 +113,25 @@ const routes = [
             {path: baseurl + 'blog', name: 'Blog', component: Blog},
             {path: baseurl + 'blog-details/:id', name: 'BlogDetails', component: BlogDetails},
 
-
-
             //pages
             {path: baseurl + 'page-list', name: 'PageList', component: PageList},
+
             //page details
             {path: baseurl + 'page-details/:id', name: 'PageDetails', component: PageDetails},
+
+            //advisor
+            {path: baseurl + 'advisors-board', name: 'AdvisorsBoard', component: AdvisorsBoard},
+
+            //advisor
+            {path: baseurl + 'shura-commitee', name: 'ShuraCommitee', component: ShuraCommitee},
+
+            //ProgramSchedule
+            {path: baseurl + 'program-schedule', name: 'ProgramSchedule', component: ProgramSchedule},
+
+            //RamadanCalendar
+            {path: baseurl + 'ramadan-calendar', name: 'RamadanCalendar', component: RamadanCalendar},
+
+
 
 ],
         beforeEnter(to, from, next) {

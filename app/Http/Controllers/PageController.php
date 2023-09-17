@@ -13,7 +13,7 @@ class PageController extends Controller
 {
     public function index()
     {
-        $pages = Page::latest()->paginate(5);
+        $pages = Page::latest()->paginate(15);
 
         return new PageCollection($pages);
     }
@@ -47,8 +47,6 @@ class PageController extends Controller
         return response()->json([
            'data'=>$pages
         ]);
-//        return new PageResource($pages);
-//        return view('pages.Details', compact('pages'));
 
     }
 

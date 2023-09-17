@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdvisorsController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BranchController;
@@ -14,8 +15,11 @@ use App\Http\Controllers\MenuPermissionController;
 use App\Http\Controllers\MiscellaniousController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\ProgramScheduleController;
+use App\Http\Controllers\RamadanController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SessionHeadController;
+use App\Http\Controllers\ShuraController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\StudentBillController;
 use App\Http\Controllers\StudentBillPaymentController;
@@ -106,6 +110,21 @@ Route::group(['middleware' => ['jwt:api']], function () {
     Route::apiResource('volunteers',VolunteerController::class);
     Route::get('volunteer-details/{id}',[VolunteerController::class,'show']);
     Route::get('search/blogs/{query}', [VolunteerController::class,'search']);
+
+    //advisor
+    Route::apiResource('advisors',AdvisorsController::class);
+    Route::get('search/advisors/{query}', [AdvisorsController::class,'search']);
+
+    //shura
+    Route::apiResource('shuras',ShuraController::class);
+    Route::get('search/shuras/{query}', [ShuraController::class,'search']);
+
+    //schedule
+    Route::apiResource('program-schedule',ProgramScheduleController::class);
+    Route::get('search/program-schedule/{query}', [ProgramScheduleController::class,'search']);
+    //ramadan
+    Route::apiResource('ramadans',RamadanController::class);
+    Route::get('search/ramadans/{query}', [RamadanController::class,'search']);
 
     //menu resource route
     Route::apiResource('menu', MenuController::class);

@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="container-fluid">
-      <breadcrumb :options="['Volunteer List']"/>
+      <breadcrumb :options="['Volunteer']"/>
       <div class="row">
         <div class="col-xl-12">
           <div class="card">

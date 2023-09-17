@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="container-fluid">
-      <breadcrumb :options="['Imam List']"/>
+      <breadcrumb :options="['Imam']"/>
       <div class="row">
         <div class="col-xl-12">
           <div class="card">
