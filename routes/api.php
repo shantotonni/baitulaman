@@ -144,7 +144,12 @@ Route::group(['middleware' => ['jwt:api']], function () {
 });
 
 //For Frontend
-Route::get('get-youth-club', [\App\Http\Controllers\Api\Frontend\PagesController::class, 'youthClub']);
-Route::get('get-maktab-curriculum', [\App\Http\Controllers\Api\Frontend\PagesController::class, 'maktabCurriculum']);
-Route::get('get-about', [\App\Http\Controllers\Api\Frontend\PagesController::class, 'getAbout']);
-Route::get('get-objectives', [\App\Http\Controllers\Api\Frontend\PagesController::class, 'getObjectives']);
+Route::get('get-pages', [\App\Http\Controllers\Api\Frontend\PagesController::class, 'getPages']);
+Route::get('get-advisory-board', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getAdvisoryBoard']);
+Route::get('get-shura-committee', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getShuraCommittee']);
+Route::get('get-imam', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getImam']);
+Route::post('ask-the-imam', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'askTheImam']);
+Route::get('get-program-schedule', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getProgramSchedule']);
+Route::get('get-ramadan-calendar', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getRamadanCalendar']);
+Route::get('get-our-program', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getOurProgram']);
+Route::get('get-our-events', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getOurEvents']);

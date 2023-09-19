@@ -74,7 +74,6 @@ const routes = [
                 component: Dashboard
             },
             //SESSION SETTINGS
-
             {path: baseurl + 'student-list', name: 'StudentList', component: StudentList},
             {path: baseurl + 'user-list', name: 'UserList', component: UserList},
 
