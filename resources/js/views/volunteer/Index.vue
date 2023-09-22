@@ -16,14 +16,14 @@
                     </div>
                   </div>
                   <div class="card-tools">
-                    <button type="button" class="btn btn-success btn-sm" @click="createVolunteer">
-                      <i class="fas fa-plus"></i>
-                      Add Volunteer
-                    </button>
-                    <button type="button" class="btn btn-primary btn-sm" @click="reload">
-                      <i class="fas fa-sync"></i>
-                      Reload
-                    </button>
+<!--                    <button type="button" class="btn btn-success btn-sm" @click="createVolunteer">-->
+<!--                      <i class="fas fa-plus"></i>-->
+<!--                      Add Volunteer-->
+<!--                    </button>-->
+<!--                    <button type="button" class="btn btn-primary btn-sm" @click="reload">-->
+<!--                      <i class="fas fa-sync"></i>-->
+<!--                      Reload-->
+<!--                    </button>-->
                   </div>
                 </div>
                 <div class="table-responsive">
@@ -32,36 +32,20 @@
                     <tr>
                       <th>SN</th>
                       <th>Name</th>
-                      <th>Mobile</th>
                       <th>Email</th>
-                      <th>Address</th>
-                      <th>Image</th>
-                      <th>Status</th>
+                      <th>Message</th>
                       <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(volunteer, i) in volunteers"
-                        :key="volunteer.id"
-                        v-if="volunteers.length">
+                    <tr v-for="(volunteer, i) in volunteers" :key="volunteer.id" v-if="volunteers.length">
                       <th class="text-center" scope="row">{{ ++i }}</th>
                       <td class="text-left">{{ volunteer.name }}</td>
-                      <td class="text-right">{{ volunteer.mobile }}</td>
                       <td class="text-left">{{ volunteer.email }}</td>
-                      <td class="text-left">{{ volunteer.address }}</td>
-
+                      <td class="text-left">{{ volunteer.message }}</td>
                       <td class="text-center">
-                        <img v-if="volunteer.image" height="40" width="40"
-                             :src="tableImage(volunteer.image)" alt="">
-                      </td>
-                      <td class="text-left">{{ volunteer.status }}</td>
-                      <td class="text-center">
-                        <router-link :to="`volunteer-details/${volunteer.id}`" class="btn btn-primary btn-sm btn-xs"><i class="far fa-eye"></i></router-link>
-                        <button @click="edit(volunteer)" class="btn btn-success btn-sm">
-                          <i class="far fa-edit"></i></button>
-                        <button @click="destroy(volunteer.id)"
-                                class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>
-                        </button>
+                        <button @click="edit(volunteer)" class="btn btn-success btn-sm"><i class="far fa-edit"></i></button>
+                        <button @click="destroy(volunteer.id)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                       </td>
                     </tr>
                     </tbody>
@@ -99,69 +83,18 @@
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label>Mobile</label>
-                      <input type="number" name="mobile" v-model="form.mobile" class="form-control" :class="{ 'is-invalid': form.errors.has('mobile') }">
-                      <div class="error" v-if="form.errors.has('mobile')" v-html="form.errors.get('mobile')" />
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group">
                       <label>Email</label>
                       <input type="email" name="email" v-model="form.email" class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
                       <div class="error" v-if="form.errors.has('email')" v-html="form.errors.get('email')" />
                     </div>
                   </div>
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label>Address</label>
-                      <input type="text" name="address" v-model="form.address" class="form-control" :class="{ 'is-invalid': form.errors.has('address') }">
-                      <div class="error" v-if="form.errors.has('address')" v-html="form.errors.get('address')" />
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label>Status</label>
-                      <select type="Status" name="status" v-model="form.status" class="form-control" :class="{ 'is-invalid': form.errors.has('status') }">
-                        <option disabled value="">Select Status</option>
-                        <option >Active</option>
-                        <option >Inactive</option>
-                      </select>
-                      <div class="error" v-if="form.errors.has('status')" v-html="form.errors.get('status')"/>
-                    </div>
-                  </div>
 
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label>Image <small>(Image type:jpeg,jpg,png,svg)</small></label>
-                      <input @change="changeImage($event)" type="file" name="image" class="form-control" :class="{ 'is-invalid': form.errors.has('image') }">
-                      <div class="error" v-if="form.errors.has('image')" v-html="form.errors.get('image')"/>
-                      <img v-if="form.image" :src="showImage(form.image)" alt="" height="40px" width="40px">
-                    </div>
-                  </div>
                   <div class="col-md-12">
                     <div class="form-group">
                       <div class="form-group">
                         <label>Description</label>
-                        <vue-editor name="description" v-model="form.description" :class="{ 'is-invalid': form.errors.has('description') }"></vue-editor>
-                        <div class="error" v-if="form.errors.has('description')" v-html="form.errors.get('description')"/>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <div class="form-group">
-                        <label>Educational Qualification</label>
-                        <vue-editor name="educational_qualification" v-model="form.educational_qualification" :class="{ 'is-invalid': form.errors.has('educational_qualification') }"></vue-editor>
-                        <div class="error" v-if="form.errors.has('educational_qualification')" v-html="form.errors.get('educational_qualification')"/>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <div class="form-group">
-                        <label>Experience</label>
-                        <vue-editor name="experience" v-model="form.experience" :class="{ 'is-invalid': form.errors.has('experience') }"></vue-editor>
-                        <div class="error" v-if="form.errors.has('experience')" v-html="form.errors.get('experience')"/>
+                        <vue-editor name="message" v-model="form.message" :class="{ 'is-invalid': form.errors.has('message') }"></vue-editor>
+                        <div class="error" v-if="form.errors.has('message')" v-html="form.errors.get('message')"/>
                       </div>
                     </div>
                   </div>
@@ -200,14 +133,8 @@ export default {
       form: new Form({
         id :'',
         name :'',
-        mobile :'',
         email :'',
-        address :'',
-        description :'',
-        image :'',
-        status :'',
-        educational_qualification :'',
-        experience :'',
+        message :'',
       }),
     }
   },
@@ -282,25 +209,6 @@ export default {
       }).catch(e => {
         this.isLoading = false;
       });
-    },
-    changeImage(event) {
-      let file = event.target.files[0];
-      let reader = new FileReader();
-      reader.onload = event => {
-        this.form.image = event.target.result;
-      };
-      reader.readAsDataURL(file);
-    },
-    showImage() {
-      let img = this.form.image;
-      if (img.length > 100) {
-        return this.form.image;
-      } else {
-        return window.location.origin + "/images/volunteer/" + this.form.image;
-      }
-    },
-    tableImage(image) {
-      return window.location.origin + "/images/volunteer/" + image;
     },
     destroy(id) {
       Swal.fire({

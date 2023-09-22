@@ -2,9 +2,9 @@
   <div class="topbar">
     <!-- LOGO -->
     <div class="topbar-left">
-<!--      <router-link :to="{name : 'Dashboard'}" class="logo" style="color: white!important;">-->
-<!--        Baitulaman-->
-<!--      </router-link>-->
+      <router-link :to="{name : 'Dashboard'}" class="logo" style="color: white!important;">
+        Baitulaman
+      </router-link>
     </div>
     <nav class="navbar-custom">
       <ul class="navbar-right list-inline float-right mb-0">

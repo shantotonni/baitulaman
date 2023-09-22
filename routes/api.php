@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdvisorsController;
+use App\Http\Controllers\Api\Frontend\CustomerAuthController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BranchController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SessionHeadController;
 use App\Http\Controllers\ShuraController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\StudentBillController;
 use App\Http\Controllers\StudentBillPaymentController;
 use App\Http\Controllers\StudentController;
@@ -138,6 +140,14 @@ Route::group(['middleware' => ['jwt:api']], function () {
 });
 
 //For Frontend
+
+//customer login
+Route::post('auth/login', [CustomerAuthController::class, 'login']);
+Route::post('auth/logout', [CustomerAuthController::class, 'logout']);
+Route::get('auth/user', [CustomerAuthController::class, 'me']);
+Route::post('auth/registration', [CustomerAuthController::class, 'registration']);
+
+
 Route::get('get-pages', [\App\Http\Controllers\Api\Frontend\PagesController::class, 'getPages']);
 Route::get('get-advisory-board', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getAdvisoryBoard']);
 Route::get('get-shura-committee', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getShuraCommittee']);
@@ -147,3 +157,12 @@ Route::get('get-program-schedule', [\App\Http\Controllers\Api\Frontend\FrontCont
 Route::get('get-ramadan-calendar', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getRamadanCalendar']);
 Route::get('get-our-program', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getOurProgram']);
 Route::get('get-our-events', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getOurEvents']);
+Route::post('mailing', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'mailing']);
+Route::post('contact', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'contact']);
+Route::post('volunteer', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'volunteer']);
+Route::post('question', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'question']);
+
+//stript payment
+Route::get('get-session', [StripeController::class, 'getSession']);
+Route::get('checkout', [StripeController::class, 'getSession'])->name('checkout');
+Route::get('success', [StripeController::class, 'getSession'])->name('success');

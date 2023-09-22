@@ -19,14 +19,8 @@ class VolunteerCollection extends ResourceCollection
                 return [
                     'id'=>$volunteer->id,
                     'name'=>$volunteer->name,
-                    'mobile'=>$volunteer->mobile,
                     'email'=>$volunteer->email,
-                    'address'=>$volunteer->address,
-                    'description'=>$volunteer->description,
-                    'image'=>$volunteer->image,
-                    'educational_qualification'=>$volunteer->educational_qualification,
-                    'experience'=>$volunteer->experience,
-                    'status'=>$volunteer->status,
+                    'message'=>$volunteer->message,
                 ];
             })
         ];
