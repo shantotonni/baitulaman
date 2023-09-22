@@ -28,6 +28,8 @@ import AdvisorsBoard from '../views/advisors_board/Index.vue'
 import ShuraCommitee from '../views/shura_committee/Index.vue'
 import ProgramSchedule from '../views/program_schedule/Index.vue'
 import RamadanCalendar from '../views/ramadan/Index.vue'
+import Testimonial from '../views/testimonial/Index.vue'
+import TestimonialDetails from '../views/testimonial/Details.vue'
 
 
 import NotFound from '../views/404/Index';
@@ -129,10 +131,14 @@ const routes = [
 
             //RamadanCalendar
             {path: baseurl + 'ramadan-calendar', name: 'RamadanCalendar', component: RamadanCalendar},
+            //Testimonial
+            {path: baseurl + 'testimonial', name: 'Testimonial', component: Testimonial},
+            {path: baseurl + 'testimonial-details/:id', name: 'TestimonialDetails', component: TestimonialDetails},
 
 
 
-],
+
+        ],
         beforeEnter(to, from, next) {
             checkToken(to, from, next);
         }

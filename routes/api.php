@@ -26,6 +26,7 @@ use App\Http\Controllers\StripeController;
 use App\Http\Controllers\StudentBillController;
 use App\Http\Controllers\StudentBillPaymentController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\WebMenuController;
 use App\Http\Controllers\WebSubMenuController;
@@ -120,6 +121,11 @@ Route::group(['middleware' => ['jwt:api']], function () {
     //ramadan
     Route::apiResource('ramadans',RamadanController::class);
     Route::get('search/ramadans/{query}', [RamadanController::class,'search']);
+    //testimonial
+    Route::apiResource('testimonial',TestimonialController::class);
+    Route::get('testimonial-details/{id}',[TestimonialController::class,'show']);
+
+    Route::get('search/testimonial/{query}', [TestimonialController::class,'search']);
 
     //menu resource route
     Route::apiResource('menu', MenuController::class);

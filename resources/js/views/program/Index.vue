@@ -35,7 +35,6 @@
                         <th>Image</th>
                         <th>Order</th>
                         <th>Status</th>
-
                         <th>Action</th>
                       </tr>
                     </thead>
