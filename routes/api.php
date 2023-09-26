@@ -139,6 +139,14 @@ Route::group(['middleware' => ['jwt:api']], function () {
 
     Route::get('get-all-session', [CommonController::class,'getAllSession']);
 
+
+    //new route created by shanto
+    Route::get('contacts', [\App\Http\Controllers\Api\ContactController::class,'list']);
+    Route::get('mailing', [\App\Http\Controllers\Api\MailingController::class,'list']);
+    Route::get('questions', [\App\Http\Controllers\Api\QuestionController::class,'list']);
+    Route::post('question-reply', [\App\Http\Controllers\Api\QuestionController::class,'replyStore']);
+
+
 //    Route::group(['middleware' => 'CustomerAuth'], function () {
 //        Route::get('get-youth-club', [\App\Http\Controllers\Api\Frontend\PagesController::class, 'youthClub']);
 //    });
@@ -172,3 +180,11 @@ Route::post('question', [\App\Http\Controllers\Api\Frontend\FrontController::cla
 Route::get('get-session', [StripeController::class, 'getSession']);
 Route::get('checkout', [StripeController::class, 'getSession'])->name('checkout');
 Route::get('success', [StripeController::class, 'getSession'])->name('success');
+
+//new
+Route::post('payment/initiate', [StripeController::class, 'initiatePayment']);
+Route::post('payment/complete', [StripeController::class, 'completePayment']);
+Route::post('payment/failure', [StripeController::class, 'failPayment']);
+
+//san
+Route::post('payment/store', [StripeController::class, 'paymentStore']);

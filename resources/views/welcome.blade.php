@@ -98,6 +98,7 @@
 <script src="{{asset('assets/plugins/peity-chart/jquery.peity.min.js')}}"></script>
 <script src="{{ asset('assets/plugins/jquery-repeater/jquery.repeater.min.js') }}"></script>
 <script src="{{ asset('assets/pages/form-repeater.int.js') }}"></script>
+<script src="https://js.stripe.com/v3/"></script>
 <!--Summernote js-->
 <script src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
 <script src="{{ asset('assets/pages/form-editors.int.js') }}"></script>

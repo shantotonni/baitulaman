@@ -23,7 +23,7 @@ import OurImamDetails from '../views/our_imam/Details.vue'
 import Blog from '../views/blog/Index.vue'
 import BlogDetails from '../views/blog/Details.vue'
 import VolunteerList from '../views/volunteer/Index.vue'
-import VolunteerDetails from '../views/volunteer/Details.vue'
+
 import AdvisorsBoard from '../views/advisors_board/Index.vue'
 import ShuraCommitee from '../views/shura_committee/Index.vue'
 import ProgramSchedule from '../views/program_schedule/Index.vue'
@@ -31,6 +31,9 @@ import RamadanCalendar from '../views/ramadan/Index.vue'
 import Testimonial from '../views/testimonial/Index.vue'
 import TestimonialDetails from '../views/testimonial/Details.vue'
 
+import Contact from '../views/contact/Index.vue'
+import Mailing from '../views/mailing/Index.vue'
+import Question from '../views/question/Index.vue'
 
 import NotFound from '../views/404/Index';
 import {baseurl} from '../base_url'
@@ -68,76 +71,39 @@ const routes = [
         redirect: {name: 'Dashboard'},
         children: [
             //DASHBAORD
-            {
-                path: baseurl + 'dashboard',
-                name: 'Dashboard',
-                component: Dashboard
-            },
-            //SESSION SETTINGS
+            {path: baseurl + 'dashboard', name: 'Dashboard', component: Dashboard},
+
             {path: baseurl + 'student-list', name: 'StudentList', component: StudentList},
             {path: baseurl + 'user-list', name: 'UserList', component: UserList},
-
-            //menu vue route
             {path: baseurl + 'menu-list', name: 'MenuList', component: MenuList},
             {path: baseurl + 'user-menu-permission', name: 'UserMenuPermission', component: MenuPermission},
-
-            //slider
             {path: baseurl + 'slider-list', name: 'SliderList', component: SliderList},
             {path: baseurl + 'slider-details/:id', name: 'SliderDetails', component: SliderDetails},
-
-            //event
             {path: baseurl + 'event-list', name: 'EventList', component: EventList},
             {path: baseurl + 'event-details/:id', name: 'EventDetails', component: EventDetails},
-
-            //program
             {path: baseurl + 'program-list', name: 'ProgramList', component: ProgramList},
             {path: baseurl + 'program-details/:id', name: 'ProgramDetails', component: ProgramDetails},
-
-            //customer
             {path: baseurl + 'customer-list', name: 'CustomerList', component: CustomerList},
-
-            //Submenu
             {path: baseurl + 'web-sub-menu', name: 'SubMenu', component: SubMenu},
-
-            //Webmenu
             {path: baseurl + 'web-menu', name: 'WebMenu', component: WebMenu},
-
-            //imam
             {path: baseurl + 'our-imam', name: 'OurImam', component: OurImam},
             {path: baseurl + 'imam-details/:id', name: 'OurImamDetails', component: OurImamDetails},
-
-             //volunteer
             {path: baseurl + 'volunteer-list', name: 'VolunteerList', component: VolunteerList},
-            {path: baseurl + 'volunteer-details/:id', name: 'VolunteerDetails', component: VolunteerDetails},
-
-            //Blog
             {path: baseurl + 'blog', name: 'Blog', component: Blog},
             {path: baseurl + 'blog-details/:id', name: 'BlogDetails', component: BlogDetails},
-
-            //pages
             {path: baseurl + 'page-list', name: 'PageList', component: PageList},
-
-            //page details
             {path: baseurl + 'page-details/:id', name: 'PageDetails', component: PageDetails},
-
-            //advisor
             {path: baseurl + 'advisors-board', name: 'AdvisorsBoard', component: AdvisorsBoard},
-
-            //advisor
             {path: baseurl + 'shura-commitee', name: 'ShuraCommitee', component: ShuraCommitee},
-
-            //ProgramSchedule
             {path: baseurl + 'program-schedule', name: 'ProgramSchedule', component: ProgramSchedule},
-
-            //RamadanCalendar
             {path: baseurl + 'ramadan-calendar', name: 'RamadanCalendar', component: RamadanCalendar},
-            //Testimonial
             {path: baseurl + 'testimonial', name: 'Testimonial', component: Testimonial},
             {path: baseurl + 'testimonial-details/:id', name: 'TestimonialDetails', component: TestimonialDetails},
 
-
-
-
+            //nee route
+            {path: baseurl + 'contact-list', name: 'Contact', component: Contact},
+            {path: baseurl + 'mailing-list', name: 'Mailing', component: Mailing},
+            {path: baseurl + 'question-list', name: 'Question', component: Question},
         ],
         beforeEnter(to, from, next) {
             checkToken(to, from, next);
