@@ -13,11 +13,12 @@ class StripeController extends Controller
 {
     public function getSession(Request $request)
     {
+        header('Access-Control-Allow-Origin: *');
         try {
             \Stripe\Stripe::setApiKey(config('stripe.sk'));
 
             $productname = 'Demo Product';
-            $totalprice = 10;
+            $totalprice = 100;
 
             $session = \Stripe\Checkout\Session::create([
                 'line_items'  => [
@@ -33,7 +34,8 @@ class StripeController extends Controller
                     ],
 
                 ],
-                'mode'        => 'payment',
+                'mode'        => 'one-time',
+                'payment_method_types' => ['card'],
                 'success_url' => route('success'),
                 'cancel_url'  => route('checkout'),
             ]);
@@ -51,6 +53,14 @@ class StripeController extends Controller
                 'message' => 'Something went wrong! '.$exception->getMessage()
             ],500);
         }
+    }
+
+    public function checkout(){
+
+    }
+
+    public function success(){
+
     }
 
     public function paymentStore(Request $request){

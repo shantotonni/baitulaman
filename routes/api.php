@@ -146,11 +146,6 @@ Route::group(['middleware' => ['jwt:api']], function () {
     Route::get('questions', [\App\Http\Controllers\Api\QuestionController::class,'list']);
     Route::post('question-reply', [\App\Http\Controllers\Api\QuestionController::class,'replyStore']);
 
-
-//    Route::group(['middleware' => 'CustomerAuth'], function () {
-//        Route::get('get-youth-club', [\App\Http\Controllers\Api\Frontend\PagesController::class, 'youthClub']);
-//    });
-
 });
 
 //For Frontend
@@ -160,6 +155,16 @@ Route::post('auth/login', [CustomerAuthController::class, 'login']);
 Route::post('auth/logout', [CustomerAuthController::class, 'logout']);
 Route::get('auth/user', [CustomerAuthController::class, 'me']);
 Route::post('auth/registration', [CustomerAuthController::class, 'registration']);
+
+Route::group(['middleware' => 'CustomerAuth'], function () {
+    Route::post('auth/profile-update', [CustomerAuthController::class, 'updateProfile']);
+    Route::get('get-customer-donation-list', [CustomerAuthController::class, 'customerDonationList']);
+    Route::get('get-customer-program-list', [CustomerAuthController::class, 'customerProgramList']);
+    Route::get('donate-print/{id}', [CustomerAuthController::class, 'donatePrint']);
+
+    Route::get('join-events', [CustomerController::class, 'joinEvents']);
+});
+
 
 
 Route::get('get-pages', [\App\Http\Controllers\Api\Frontend\PagesController::class, 'getPages']);
@@ -178,8 +183,8 @@ Route::post('question', [\App\Http\Controllers\Api\Frontend\FrontController::cla
 
 //stript payment
 Route::get('get-session', [StripeController::class, 'getSession']);
-Route::get('checkout', [StripeController::class, 'getSession'])->name('checkout');
-Route::get('success', [StripeController::class, 'getSession'])->name('success');
+Route::get('checkout', [StripeController::class, 'checkout'])->name('checkout');
+Route::get('success', [StripeController::class, 'success'])->name('success');
 
 //new
 Route::post('payment/initiate', [StripeController::class, 'initiatePayment']);

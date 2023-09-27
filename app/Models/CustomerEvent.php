@@ -5,15 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Donation extends Model
+class CustomerEvent extends Model
 {
     use HasFactory;
 
-    protected $table = "donation";
+    protected $table = "customer_event";
     protected $primaryKey = "id";
     protected $guarded = [];
 
     public function customer(){
         return $this->belongsTo(Customer::class,'customer_id','id');
+    }
+
+    public function event(){
+        return $this->belongsTo(Event::class,'event_id','id');
     }
 }

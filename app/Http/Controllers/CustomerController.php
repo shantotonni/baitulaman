@@ -5,51 +5,53 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Customer\CustomerStoreRequest;
 use App\Http\Resources\Customer\CustomerCollection;
 use App\Models\Customer;
+use App\Models\CustomerEvent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CustomerController extends Controller
 {
-    public function index()
-    {
-        $customers = Customer::orderby('id','desc')->paginate(15);
-        return new CustomerCollection($customers);
+    function __construct() {
+        Config::set('jwt.user', Customer::class);
+        Config::set('auth.providers', ['users' => [
+            'driver' => 'eloquent',
+            'model' => Customer::class,
+        ]]);
     }
 
-    public function store(CustomerStoreRequest $request)
-    {
-        $customer = new Customer;
-        $customer->first_name = $request->first_name;
-        $customer->last_name = $request->last_name;
-        $customer->email = $request->email;
-        $customer->phone = $request->phone;
-        $customer->ages_of_children = $request->ages_of_children;
-        $customer->ages_of_father = $request->ages_of_father;
-        $customer->want_to_receive_email = $request->want_to_receive_email;
-        $customer->customer_status = $request->customer_status;
+    public function updateProfile(Request $request){
+        $this->validate($request, [
+            'Name' => 'required',
+            'Division' => 'required',
+            'District' => 'required',
+            'Upazilla' => 'required',
+        ]);
+
+        $customer = Customer::where('ID',$request->ID)->first();
+        $customer->Name = $request->Name;
+        $customer->Email = $request->Email;
+        $customer->NID = $request->NID;
+        $customer->Address = $request->Address;
+        $customer->Division = $request->Division;
+        $customer->District = $request->District;
+        $customer->Upazilla = $request->Upazilla;
+        //$customer->Type = 'customer';
+        $customer->Status = 'Y';
         $customer->save();
-        return response()->json(['message'=>'Customer info Successfully stored',200]);
 
+        return response()->json([
+            'status'=>200,
+            'message'=>'success'
+        ],200);
     }
 
-    public function update(Request $request, $id)
-    {
-
-        $customer = Customer::where('id',$request->id)->first();
-        $customer->first_name = $request->first_name;
-        $customer->last_name = $request->last_name;
-        $customer->email = $request->email;
-        $customer->phone = $request->phone;
-        $customer->ages_of_children = $request->ages_of_children;
-        $customer->ages_of_father = $request->ages_of_father;
-        $customer->want_to_receive_email = $request->want_to_receive_email;
-        $customer->customer_status = $request->customer_status;
-        $customer->save();
-        return response()->json(['message'=>'Customer info Successfully updated',200]);
-    }
-
-    public function destroy( $id)
-    {
-        Customer::where('id', $id)->delete();
-        return response()->json(['message'=>'Customer info Successfully Deleted',200]);
+    public function joinEvents(Request $request){
+        $customer = JWTAuth::parseToken()->authenticate();
+        $customer_event = new CustomerEvent();
+        $customer_event->customer_id = $customer->id;
+        $customer_event->event_id = $request->EventId;
+        $customer_event->save();
+        return response()->json(['message'=>'Event Created Successfully'],200);
     }
 }

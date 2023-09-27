@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Event\EventStoreRequest;
 use App\Http\Resources\Event\EventCollection;
+use App\Models\CustomerEvent;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class EventController extends Controller
 {
@@ -16,7 +18,6 @@ class EventController extends Controller
 
         return new EventCollection($events);
     }
-
 
     public function store(EventStoreRequest $request)
     {
@@ -73,6 +74,7 @@ class EventController extends Controller
         $event->save();
         return response()->json(['message'=>'event Updated Successfully'],200);
     }
+
     public function show($id){
 
         $events = Event::Where('id',$id)->first();
@@ -97,10 +99,10 @@ class EventController extends Controller
         return response()->json(['message' => 'Event Deleted Successfully']);
     }
 
-
     public function search($query)
     {
         return new EventCollection( Event::Where('title', 'like', "%$query%")
             ->paginate(10));
     }
+
 }

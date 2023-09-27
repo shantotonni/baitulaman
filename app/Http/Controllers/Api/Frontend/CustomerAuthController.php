@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Api\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CustomerEventCollection;
+use App\Http\Resources\DonationCollection;
+use App\Http\Resources\DonationResource;
 use App\Models\Customer;
+use App\Models\CustomerEvent;
+use App\Models\Donation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -67,22 +72,18 @@ class CustomerAuthController extends Controller
 
     public function updateProfile(Request $request){
         $this->validate($request, [
-            'Name' => 'required',
-            'Division' => 'required',
-            'District' => 'required',
-            'Upazilla' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
         ]);
 
-        $customer = Customer::where('ID',$request->ID)->first();
-        $customer->Name = $request->Name;
-        $customer->Email = $request->Email;
-        $customer->NID = $request->NID;
-        $customer->Address = $request->Address;
-        $customer->Division = $request->Division;
-        $customer->District = $request->District;
-        $customer->Upazilla = $request->Upazilla;
-        //$customer->Type = 'customer';
-        $customer->Status = 'Y';
+        $customer = JWTAuth::parseToken()->authenticate();
+
+        $customer = Customer::where('id',$customer->id)->first();
+        $customer->name = $request->name;
+        $customer->email = $request->email;
+        $customer->address = $request->address;
+        $customer->phone = $request->phone;
         $customer->save();
 
         return response()->json([
@@ -133,6 +134,23 @@ class CustomerAuthController extends Controller
             'status'=>200,
             'message' => 'Successfully logged out'
         ],200);
+    }
+
+    public function customerDonationList(){
+        $customer = JWTAuth::parseToken()->authenticate();
+        $donationList = Donation::where('customer_id',$customer->id)->with('customer')->get();
+        return new DonationCollection($donationList);
+    }
+
+    public function donatePrint($id){
+        $donationList = Donation::where('customer_id',$id)->with('customer')->first();
+        return new DonationResource($donationList);
+    }
+
+    public function customerProgramList(){
+        $customer = JWTAuth::parseToken()->authenticate();
+        $customer_event = CustomerEvent::where('customer_id',$customer->id)->get();
+        return new CustomerEventCollection($customer_event);
     }
 
 }
