@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Customer\CustomerStoreRequest;
 use App\Http\Resources\Customer\CustomerCollection;
+use App\Http\Resources\CustomerEventCollection;
 use App\Models\Customer;
 use App\Models\CustomerEvent;
 use Illuminate\Http\Request;
@@ -18,6 +19,11 @@ class CustomerController extends Controller
             'driver' => 'eloquent',
             'model' => Customer::class,
         ]]);
+    }
+
+    public function index(){
+        $customers = Customer::orderBy('created_at','desc')->paginate(10);
+        return new CustomerCollection($customers);
     }
 
     public function updateProfile(Request $request){
@@ -53,5 +59,10 @@ class CustomerController extends Controller
         $customer_event->event_id = $request->EventId;
         $customer_event->save();
         return response()->json(['message'=>'Event Created Successfully'],200);
+    }
+
+    public function getAllCustomerEvents(){
+        $customer_events = CustomerEvent::with('customer','event')->orderBy('created_at','desc')->paginate(10);
+        return new CustomerEventCollection($customer_events);
     }
 }

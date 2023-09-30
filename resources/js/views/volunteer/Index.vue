@@ -123,7 +123,7 @@ export default {
   },
   data() {
     return {
-      Volunteers: [],
+      volunteers: [],
       pagination: {
         current_page: 1
       },

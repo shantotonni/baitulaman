@@ -80,6 +80,7 @@ Route::group(['middleware' => ['jwt:api']], function () {
     //customer
     Route::apiResource('customers',CustomerController::class);
     Route::get('search/customers/{query}', [CustomerController::class,'search']);
+    Route::get('get-all-customer-events', [CustomerController::class,'getAllCustomerEvents']);
     //web menu
     Route::apiResource('web-menu',WebMenuController::class);
     Route::get('search/web-menu/{query}', [WebMenuController::class,'search']);
@@ -176,9 +177,11 @@ Route::get('get-program-schedule', [\App\Http\Controllers\Api\Frontend\FrontCont
 Route::get('get-ramadan-calendar', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getRamadanCalendar']);
 Route::get('get-our-program', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getOurProgram']);
 Route::get('get-our-events', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getOurEvents']);
+Route::get('get-testimonial', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getTestimonial']);
 Route::post('mailing', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'mailing']);
 Route::post('contact', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'contact']);
 Route::post('volunteer', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'volunteer']);
+Route::post('question', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'question']);
 Route::post('question', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'question']);
 
 //stript payment

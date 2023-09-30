@@ -6,12 +6,6 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CustomerEventCollection extends ResourceCollection
 {
-    /**
-     * Transform the resource collection into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
-     */
     public function toArray($request)
     {
         return [
@@ -19,6 +13,9 @@ class CustomerEventCollection extends ResourceCollection
                 return [
                     'id'=>$CE->id,
                     'customer_name'=>isset($CE->customer) ? $CE->customer->name: '',
+                    'customer_email'=>isset($CE->customer) ? $CE->customer->email: '',
+                    'customer_phone'=>isset($CE->customer) ? $CE->customer->phone: '',
+                    'customer_address'=>isset($CE->customer) ? $CE->customer->address: '',
                     'title'=>isset($CE->event) ? $CE->event->title: '',
                     'event_date'=>isset($CE->event) ? $CE->event->event_date: '',
                 ];

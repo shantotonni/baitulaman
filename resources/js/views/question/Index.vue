@@ -49,7 +49,7 @@
                         <span v-if="question.status ==='done'" class="badge badge-danger">Done</span>
                       </td>
                       <td class="text-center">
-                        <button @click="reply(question.id)" class="btn btn-success btn-sm" type="button"><i class="far fa-eye"></i></button>
+                        <button @click="reply(question.id)" class="btn btn-success btn-sm" type="button">Reply</button>
                       </td>
                     </tr>
                     </tbody>
@@ -104,7 +104,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="closeModal">Close</button>
-              <button :disabled="form.busy" type="submit" class="btn btn-primary">{{ editMode ? "Update" : "Create" }} Volunteer</button>
+              <button :disabled="form.busy" type="submit" class="btn btn-primary">{{ editMode ? "Update" : "Create" }} Reply</button>
             </div>
           </form>
         </div>

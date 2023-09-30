@@ -13,6 +13,7 @@ use App\Models\ProgramSchedule;
 use App\Models\Question;
 use App\Models\Ramadan;
 use App\Models\Shura;
+use App\Models\Testimonial;
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
 
@@ -68,6 +69,13 @@ class FrontController extends Controller
         $events = Event::orderBy('created_at','desc')->get();
         return response()->json([
             'events' => $events
+        ]);
+    }
+
+    public function getTestimonial(){
+        $testimonials = Testimonial::orderBy('created_at','desc')->get();
+        return response()->json([
+            'testimonials' => $testimonials
         ]);
     }
 

@@ -37,9 +37,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(testimonial, i) in testimonials"
-                        :key="testimonial.id"
-                        v-if="testimonials.length">
+                    <tr v-for="(testimonial, i) in testimonials" :key="testimonial.id" v-if="testimonials.length">
                       <th class="text-center" scope="row">{{ ++i }}</th>
                       <td class="text-left">{{ testimonial.name }}</td>
                       <td class="text-center">
@@ -136,6 +134,7 @@ export default {
   data() {
     return {
       programs: [],
+      testimonials: [],
       pagination: {
         current_page: 1
       },

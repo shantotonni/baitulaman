@@ -34,6 +34,7 @@ import TestimonialDetails from '../views/testimonial/Details.vue'
 import Contact from '../views/contact/Index.vue'
 import Mailing from '../views/mailing/Index.vue'
 import Question from '../views/question/Index.vue'
+import CustomerEvents from '../views/customer/CustomerEvents.vue'
 
 import NotFound from '../views/404/Index';
 import {baseurl} from '../base_url'
@@ -100,10 +101,12 @@ const routes = [
             {path: baseurl + 'testimonial', name: 'Testimonial', component: Testimonial},
             {path: baseurl + 'testimonial-details/:id', name: 'TestimonialDetails', component: TestimonialDetails},
 
-            //nee route
+            //new info module route
             {path: baseurl + 'contact-list', name: 'Contact', component: Contact},
             {path: baseurl + 'mailing-list', name: 'Mailing', component: Mailing},
             {path: baseurl + 'question-list', name: 'Question', component: Question},
+            {path: baseurl + 'question-list', name: 'Question', component: Question},
+            {path: baseurl + 'customer-events', name: 'CustomerEvents', component: CustomerEvents},
         ],
         beforeEnter(to, from, next) {
             checkToken(to, from, next);

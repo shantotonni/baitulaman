@@ -18,13 +18,10 @@ class CustomerCollection extends ResourceCollection
             'data'=>$this->collection->transform(function ($customer){
                 return [
                     'id'=>$customer->id,
-                    'first_name'=>$customer->first_name,
-                    'last_name'=>$customer->last_name,
+                    'name'=>$customer->name,
                     'email'=>$customer->email,
                     'phone'=>$customer->phone,
-                    'ages_of_children'=>$customer->ages_of_children,
-                    'ages_of_father'=>$customer->ages_of_father,
-                    'want_to_receive_email'=>$customer->want_to_receive_email,
+                    'address'=>$customer->address,
                     'customer_status'=>$customer->customer_status,
                 ];
             })

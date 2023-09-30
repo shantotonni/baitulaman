@@ -16,10 +16,10 @@
                     </div>
                   </div>
                   <div class="card-tools">
-                    <button type="button" class="btn btn-success btn-sm" @click="createCustomer">
-                      <i class="fas fa-plus"></i>
-                      Add Customer
-                    </button>
+<!--                    <button type="button" class="btn btn-success btn-sm" @click="createCustomer">-->
+<!--                      <i class="fas fa-plus"></i>-->
+<!--                      Add Customer-->
+<!--                    </button>-->
                     <button type="button" class="btn btn-primary btn-sm" @click="reload">
                       <i class="fas fa-sync"></i>
                       Reload
@@ -32,13 +32,10 @@
                     <thead>
                     <tr>
                       <th>SN</th>
-                      <th>First Name</th>
-                      <th>Last Name</th>
+                      <th>Customer Name</th>
                       <th>Email</th>
                       <th>Phone</th>
-                      <th>Age of Children</th>
-                      <th>Ages of Father</th>
-                      <th>Want to receive Email</th>
+                      <th>Address</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
@@ -48,26 +45,25 @@
                         :key="customer.id"
                         v-if="customers.length">
                       <th class="text-center" scope="row">{{ ++i }}</th>
-                      <td class="text-left">{{ customer.first_name }}</td>
-                      <td class="text-left">{{ customer.last_name }}</td>
-                      <td class="text-right">{{ customer.email }}</td>
-                      <td class="text-left">{{ customer.phone }}</td>
-                      <td class="text-left">{{ customer.ages_of_children }}</td>
-                      <td class="text-left">{{ customer.ages_of_father }}</td>
-                      <td class="text-left">{{ customer.want_to_receive_email }}</td>
-                      <td class="text-left">{{ customer.customer_status }}</td>
+                      <td class="text-center">{{ customer.name }}</td>
+                      <td class="text-center">{{ customer.email }}</td>
+                      <td class="text-center">{{ customer.phone }}</td>
+                      <td class="text-center">{{ customer.address }}</td>
+                      <td class="text-center">{{ customer.customer_status }}</td>
                       <td class="text-center">
-                        <button @click="edit(customer)" class="btn btn-success btn-sm">
-                          <i
-                              class="far fa-edit"></i></button>
-                        <button @click="destroy(customer.id)"
-                                class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>
-                        </button>
+                        <button @click="edit(customer)" class="btn btn-success btn-sm"><i class="far fa-edit"></i></button>
+                        <button @click="destroy(customer.id)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                       </td>
                     </tr>
                     </tbody>
                   </table>
                   <br>
+                  <pagination
+                      v-if="pagination.last_page > 1"
+                      :pagination="pagination"
+                      :offset="5"
+                      @paginate="query === '' ? getAllcustomer() : searchData()"
+                  ></pagination>
 
                 </div>
               </div>
@@ -95,87 +91,65 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>First Name</label>
-                      <input type="text" name="first_name" v-model="form.first_name" class="form-control"
-                             :class="{ 'is-invalid': form.errors.has('first_name') }">
+                      <input type="text" name="first_name" v-model="form.first_name" class="form-control" :class="{ 'is-invalid': form.errors.has('first_name') }">
                       <div class="error" v-if="form.errors.has('first_name')" v-html="form.errors.get('first_name')"/>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Last Name</label>
-                      <input type="text" name="last_name" v-model="form.last_name" class="form-control"
-                             :class="{ 'is-invalid': form.errors.has('last_name') }">
+                      <input type="text" name="last_name" v-model="form.last_name" class="form-control" :class="{ 'is-invalid': form.errors.has('last_name') }">
                       <div class="error" v-if="form.errors.has('last_name')" v-html="form.errors.get('last_name')"/>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Email</label>
-                      <input type="email" name="email" v-model="form.email" class="form-control"
-                             :class="{ 'is-invalid': form.errors.has('email') }">
+                      <input type="email" name="email" v-model="form.email" class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
                       <div class="error" v-if="form.errors.has('email')" v-html="form.errors.get('email')"/>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Phone Number</label>
-                      <input type="phone" name="phone" v-model="form.phone" class="form-control"
-                             :class="{ 'is-invalid': form.errors.has('phone') }">
+                      <input type="phone" name="phone" v-model="form.phone" class="form-control" :class="{ 'is-invalid': form.errors.has('phone') }">
                       <div class="error" v-if="form.errors.has('phone')" v-html="form.errors.get('phone')"/>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Age of Children</label>
-                      <input type="number" name="ages_of_children" v-model="form.ages_of_children" class="form-control"
-                             :class="{ 'is-invalid': form.errors.has('ages_of_children') }">
-                      <div class="error" v-if="form.errors.has('ages_of_children')"
-                           v-html="form.errors.get('ages_of_children')"/>
+                      <input type="number" name="ages_of_children" v-model="form.ages_of_children" class="form-control" :class="{ 'is-invalid': form.errors.has('ages_of_children') }">
+                      <div class="error" v-if="form.errors.has('ages_of_children')" v-html="form.errors.get('ages_of_children')"/>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Age of Father</label>
-                      <input type="number" name="ages_of_father" v-model="form.ages_of_father" class="form-control"
-                             :class="{ 'is-invalid': form.errors.has('ages_of_father') }">
-                      <div class="error" v-if="form.errors.has('ages_of_father')"
-                           v-html="form.errors.get('ages_of_father')"/>
+                      <input type="number" name="ages_of_father" v-model="form.ages_of_father" class="form-control" :class="{ 'is-invalid': form.errors.has('ages_of_father') }">
+                      <div class="error" v-if="form.errors.has('ages_of_father')" v-html="form.errors.get('ages_of_father')"/>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Want to receive email</label>
-                      <select type="Status" name="want_to_receive_email" v-model="form.want_to_receive_email"
-                              class="form-control"
-                              :class="{ 'is-invalid': form.errors.has('want_to_receive_email') }">
+                      <select type="Status" name="want_to_receive_email" v-model="form.want_to_receive_email" class="form-control" :class="{ 'is-invalid': form.errors.has('want_to_receive_email') }">
                         <option disabled value="">Select Option</option>
-                        <option>
-                          Yes
-                        </option>
-                        <option>
-                          No
-                        </option>
+                        <option>Yes</option>
+                        <option>No</option>
                       </select>
-                      <div class="error" v-if="form.errors.has('want_to_receive_email')"
-                           v-html="form.errors.get('want_to_receive_email')"/>
+                      <div class="error" v-if="form.errors.has('want_to_receive_email')" v-html="form.errors.get('want_to_receive_email')"/>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Customer Status</label>
-                      <select type="Status" name="customer_status" v-model="form.customer_status"
-                              class="form-control"
-                              :class="{ 'is-invalid': form.errors.has('customer_status') }">
+                      <select type="Status" name="customer_status" v-model="form.customer_status" class="form-control" :class="{ 'is-invalid': form.errors.has('customer_status') }">
                         <option disabled value="">Select Option</option>
-                        <option>
-                          Active
-                        </option>
-                        <option>
-                          Inactive
-                        </option>
+                        <option>Active</option>
+                        <option>Inactive</option>
                       </select>
-                      <div class="error" v-if="form.errors.has('customer_status')"
-                           v-html="form.errors.get('customer_status')"/>
+                      <div class="error" v-if="form.errors.has('customer_status')" v-html="form.errors.get('customer_status')"/>
                     </div>
                   </div>
                 </div>
