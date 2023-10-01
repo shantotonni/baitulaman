@@ -176,6 +176,7 @@ Route::post('ask-the-imam', [\App\Http\Controllers\Api\Frontend\FrontController:
 Route::get('get-program-schedule', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getProgramSchedule']);
 Route::get('get-ramadan-calendar', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getRamadanCalendar']);
 Route::get('get-our-program', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getOurProgram']);
+Route::get('get-program-details', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getOurProgramDetails']);
 Route::get('get-our-events', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getOurEvents']);
 Route::get('get-testimonial', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getTestimonial']);
 Route::post('mailing', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'mailing']);

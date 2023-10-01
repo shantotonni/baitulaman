@@ -79,6 +79,13 @@ class FrontController extends Controller
         ]);
     }
 
+    public function getOurProgramDetails(Request $request){
+        $program_details = Program::where('id',$request->id)->first();
+        return response()->json([
+            'details' => $program_details
+        ]);
+    }
+
     public function mailing(Request $request){
         $this->validate($request,[
             'name'=>'required',
