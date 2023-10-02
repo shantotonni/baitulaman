@@ -35,6 +35,7 @@ import Contact from '../views/contact/Index.vue'
 import Mailing from '../views/mailing/Index.vue'
 import Question from '../views/question/Index.vue'
 import CustomerEvents from '../views/customer/CustomerEvents.vue'
+import Backups from '../views/backups/Index.vue'
 
 import NotFound from '../views/404/Index';
 import {baseurl} from '../base_url'
@@ -107,6 +108,7 @@ const routes = [
             {path: baseurl + 'question-list', name: 'Question', component: Question},
             {path: baseurl + 'question-list', name: 'Question', component: Question},
             {path: baseurl + 'customer-events', name: 'CustomerEvents', component: CustomerEvents},
+            {path: baseurl + 'backups', name: 'Backups', component: Backups},
         ],
         beforeEnter(to, from, next) {
             checkToken(to, from, next);

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdvisorsController;
 use App\Http\Controllers\Api\Frontend\CustomerAuthController;
+use App\Http\Controllers\BackupsController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BranchController;
@@ -132,6 +133,11 @@ Route::group(['middleware' => ['jwt:api']], function () {
     Route::apiResource('menu', MenuController::class);
     Route::get('search/menu/{query}', [MenuController::class,'search']);
     Route::get('get-all-menu', [MenuController::class,'getAllMenu']);
+
+    //backups
+    Route::apiResource('backups', BackupsController::class);
+    Route::get('backups/download/{file_name}', [BackupsController::class,'download'])->name('backups.download');
+
 
     //menu permission route
     Route::get('get-user-menu-details/{UserID}', [MenuPermissionController::class, 'getUserMenuPermission']);
