@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Faker\ORM\Spot\EntityPopulator;
-use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
@@ -16,7 +14,7 @@ class BackupsController extends Controller
         $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
         $files = $disk->files(config('backup.backup.name'));
         $backups = [];
-        foreach ($files as $key => $file) {
+        foreach ($files as $file) {
             if (substr($file, -4) == '.zip' && $disk->exists($file)) {
                 $file_name = str_replace(config('backup.backup.name') . '/', '', $file);
                 $backups[] = [
@@ -43,11 +41,15 @@ class BackupsController extends Controller
         return round($bytes, 2) . '' . $units[$i];
     }
 
-    public function store(Request $request)
+    public function store()
     {
+
         try {
-            Artisan::queue('backup:run');
-            return redirect()->back()->with('success', 'Successfully created');
+            Artisan::call('backup:run',['--only-db' => true]);
+            $output = Artisan::output();
+            return response()->json([
+                $output
+            ]);
         } catch (\Exception $exception) {
             return response()->json([
                 'status' => 'error',

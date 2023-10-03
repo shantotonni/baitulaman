@@ -11,15 +11,16 @@
                   <div class="flex-grow-1">
                     <div class="row">
                       <div class="col-md-2">
-<!--                        <input v-model="query" type="text" class="form-control" placeholder="Search">-->
+                        <button type="button" class="btn btn-success btn-sm" @click="createBackup">
+                          <i class="fas fa-plus"></i>
+                          Add Backup
+                        </button>
+
                       </div>
                     </div>
                   </div>
                   <div class="card-tools">
-                    <button type="button" class="btn btn-success btn-sm" @click="store">
-                      <i class="fas fa-plus"></i>
-                      Add Backup
-                    </button>
+
                     <button type="button" class="btn btn-primary btn-sm" @click="reload">
                       <i class="fas fa-sync"></i>
                       Reload
@@ -27,45 +28,51 @@
                   </div>
                 </div>
                 <div class="table-responsive">
-                  <table class="table table-bordered table-striped dt-responsive nowrap dataTable no-footer dtr-inline table-sm small">
+                  <table
+                      class="table table-bordered table-striped dt-responsive nowrap dataTable no-footer dtr-inline table-sm small">
                     <thead>
-                      <tr>
-                        <th>SN</th>
-                        <th> File Name</th>
-                        <th>Size</th>
-                        <th>Created_at</th>
-                        <th>Action</th>
-                      </tr>
+                    <tr>
+                      <th>SN</th>
+                      <th> File Name</th>
+                      <th>Size</th>
+                      <th>Created_at</th>
+                      <th>Action</th>
+                    </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(backup, i) in backups" :key="backup.backup_id" v-if="backups.length">
-                        <th scope="row">{{ ++i }}</th>
-                        <td>{{ backup.file_name }}</td>
-                        <td>{{ backup.file_size }}</td>
-                        <td>{{ backup.created_at }}</td>
-                        <td>
-                          <button @click="download(backup.file_name)" class="btn btn-success btn-sm"><i class="fas fa-download"></i></button>
-                          <button @click="destroy(backup.file_name)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                        </td>
-                      </tr>
+                    <tr v-for="(backup, i) in backups" :key="backup.file_name" v-if="backups.length">
+                      <th scope="row">{{ ++i }}</th>
+                      <td>{{ backup.file_name }}</td>
+                      <td>{{ backup.file_size }}</td>
+                      <td>{{ backup.created_at }}</td>
+                      <td>
+                        <button @click="download(backup.file_name)" class="btn btn-success btn-sm"><i
+                            class="fas fa-download"></i></button>
+                        <button @click="edit(backup)" class="btn btn-success btn-sm"><i
+                            class="far fa-edit"></i></button>
+                        <button @click="destroy(backup.file_name)" class="btn btn-danger btn-sm"><i
+                            class="fas fa-trash"></i></button>
+
+                      </td>
+                    </tr>
                     </tbody>
                   </table>
                 </div>
-<!--                <div class="row">-->
-<!--                  <div class="col-4">-->
-<!--                    <div class="data-count">-->
-<!--                      Show {{ pagination.from }} to {{ pagination.to }} of {{ pagination.total }} rows-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <div class="col-8">-->
-<!--                    <pagination-->
-<!--                        v-if="pagination.last_page > 1"-->
-<!--                        :pagination="pagination"-->
-<!--                        :offset="5"-->
-<!--                        @paginate="query === '' ? getAllBackup() : searchData()"-->
-<!--                    ></pagination>-->
-<!--                  </div>-->
-<!--                </div>-->
+                <!--                <div class="row">-->
+                <!--                  <div class="col-4">-->
+                <!--                    <div class="data-count">-->
+                <!--                      Show {{ pagination.from }} to {{ pagination.to }} of {{ pagination.total }} rows-->
+                <!--                    </div>-->
+                <!--                  </div>-->
+                <!--                  <div class="col-8">-->
+                <!--                    <pagination-->
+                <!--                        v-if="pagination.last_page > 1"-->
+                <!--                        :pagination="pagination"-->
+                <!--                        :offset="5"-->
+                <!--                        @paginate="query === '' ? getAllBackup() : searchData()"-->
+                <!--                    ></pagination>-->
+                <!--                  </div>-->
+                <!--                </div>-->
               </div>
             </div>
             <div v-else>
@@ -75,19 +82,25 @@
         </div>
       </div>
     </div>
-<!--    <div class="modal fade" id="BackupModelModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">-->
-<!--      <div class="modal-dialog modal-lg">-->
-<!--        <div class="modal-content">-->
-<!--          <div class="modal-header">-->
-<!--            <h5 class="modal-title mt-0" id="myLargeModalLabel">{{ editMode ? "Edit" : "Add" }} Backup</h5>-->
-<!--            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" @click="closeModal">×</button>-->
-<!--          </div>-->
-<!--          <form @submit.prevent="editMode ? update() : store()" @keydown="form.onKeydown($event)">-->
-
-<!--          </form>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+    <div class="modal fade" id="BackupModelModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+         aria-hidden="true" data-keyboard="false" data-backdrop="static">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title mt-0" id="myLargeModalLabel">{{ editMode ? "Edit" : "Add" }} Backup</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" @click="closeModal">×</button>
+          </div>
+          <form @submit.prevent="editMode ? update() : store()" @keydown="form.onKeydown($event)">
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="closeModal">Close</button>
+              <button :disabled="form.busy" type="submit" class="btn btn-primary">{{ editMode ? "Update" : "Create" }}
+                Backup
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
   </div>
 </template>
@@ -96,6 +109,7 @@
 import Datepicker from 'vuejs-datepicker';
 import moment from "moment";
 import {baseurl} from '../../base_url'
+
 export default {
   name: "List",
   components: {
@@ -114,15 +128,15 @@ export default {
       editMode: false,
       isLoading: false,
       form: new Form({
-        created_at :'',
-        file_size :'',
-        file_name :'',
+        created_at: '',
+        file_size: '',
+        file_name: '',
 
       }),
     }
   },
   watch: {
-    query: function(newQ, old) {
+    query: function (newQ, old) {
       if (newQ === "") {
         this.getAllBackup();
       } else {
@@ -135,59 +149,65 @@ export default {
     this.getAllBackup();
   },
   methods: {
-    getAllBackup(){
-      axios.get(baseurl+ 'api/backups?page='+ this.pagination.current_page
-      ).then((response)=>{
+    getAllBackup() {
+      axios.get(baseurl + 'api/backups'
+      ).then((response) => {
         this.backups = response.data.data;
-        this.pagination = response.data.meta;
-      }).catch((error)=>{
+      }).catch((error) => {
 
       })
     },
-    searchData(){
-      axios.get(baseurl+"api/search/backups/" + this.query + "?page=" + this.pagination.current_page).then(response => {
+    searchData() {
+      axios.get(baseurl + "api/search/backups/" + this.query + "?page=" + this.pagination.current_page).then(response => {
         this.backups = response.data.data;
         this.pagination = response.data.meta;
       }).catch(e => {
         this.isLoading = false;
       });
     },
-    reload(){
+    reload() {
       this.getAllBackup();
       this.query = "";
       this.$toaster.success('Data Successfully Refresh');
     },
-    closeModal(){
+    closeModal() {
       $("#BackupModelModal").modal("hide");
     },
     download(file_name) {
-      this.form.post(baseurl+'api/backups/download/'+ file_name)
+      this.form.get(baseurl + 'api/backups/download/' + file_name)
 
     },
-// createBackup(){
-//   this.editMode = false;
-//   this.form.reset();
-//   this.form.clear();
-//   $("#BackupModelModal").modal("show");
-// },
-    store(){
-      this.form.post(baseurl+ "api/backups").then(response => {
+    createBackup() {
+      this.editMode = false;
+      this.form.reset();
+      this.form.clear();
+      $("#BackupModelModal").modal("show");
+    },
+    store() {
+      this.form.post(baseurl + "api/backups").then(response => {
         console.log(response)
         this.getAllBackup();
         this.$toaster.success('backup Added');
       })
     },
+    edit(file_name) {
+      this.editMode = true;
+      this.form.reset();
+      this.form.clear();
+      this.form.fill(file_name);
 
-    update(){
+      $("#BackupModelModal").modal("show");
+    },
+    update() {
       this.form.busy = true;
-      this.form.put(baseurl+"api/backups/" + this.form.backup_id).then(response => {
+      this.form.put(baseurl + "api/backups/" + this.form.file_name).then(response => {
         $("#BackupModelModal").modal("hide");
         this.getAllBackup();
       }).catch(e => {
         this.isLoading = false;
       });
     },
-    destroy(file_name){
+    destroy(file_name) {
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -198,8 +218,9 @@ export default {
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.delete(baseurl+'api/backups/'+ file_name).then((response)=>{
+          axios.delete(baseurl + 'api/backups/' + file_name).then((response) => {
             this.getAllBackup();
+
             Swal.fire(
                 'Deleted!',
                 'Your file has been deleted.',
