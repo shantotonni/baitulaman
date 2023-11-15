@@ -6,12 +6,6 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class DonationCollection extends ResourceCollection
 {
-    /**
-     * Transform the resource collection into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
-     */
     public function toArray($request)
     {
         return [
@@ -20,6 +14,7 @@ class DonationCollection extends ResourceCollection
                     'id'=>$donation->id,
                     'purpose'=>$donation->purpose,
                     'amount'=>$donation->amount,
+                    'date'=>date('Y-m-d',strtotime($donation->created_at)),
                     'customer_name'=>isset($donation->customer) ? $donation->customer->name: '',
                     'customer_email'=>isset($donation->customer) ? $donation->customer->email: '',
                     'customer_phone'=>isset($donation->customer) ? $donation->customer->phone: '',

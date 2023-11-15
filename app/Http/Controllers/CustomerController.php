@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Customer\CustomerStoreRequest;
 use App\Http\Resources\Customer\CustomerCollection;
 use App\Http\Resources\CustomerEventCollection;
+use App\Http\Resources\DonationResource;
 use App\Models\Customer;
 use App\Models\CustomerEvent;
+use App\Models\Donation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -62,6 +64,21 @@ class CustomerController extends Controller
     }
 
     public function getAllCustomerEvents(){
+        $customer_events = CustomerEvent::with('customer','event')->orderBy('created_at','desc')->paginate(10);
+        return new CustomerEventCollection($customer_events);
+    }
+
+    public function invoiceData(Request $request){
+        $invoice = Donation::query()->with('customer')->where('id',$request->invoice)->first();
+        return new DonationResource($invoice);
+    }
+
+    public function exportCustomer(){
+        $customers = Customer::orderBy('created_at','desc')->get();
+        return new CustomerCollection($customers);
+    }
+
+    public function exportEvent(){
         $customer_events = CustomerEvent::with('customer','event')->orderBy('created_at','desc')->paginate(10);
         return new CustomerEventCollection($customer_events);
     }

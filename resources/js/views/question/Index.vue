@@ -129,6 +129,7 @@ export default {
         current_page: 1
       },
       query: "",
+      editMode: "",
       isLoading: false,
       form: new Form({
         id :'',

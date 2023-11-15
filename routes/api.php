@@ -2,29 +2,20 @@
 
 use App\Http\Controllers\AdvisorsController;
 use App\Http\Controllers\Api\Frontend\CustomerAuthController;
-use App\Http\Controllers\BankController;
 use App\Http\Controllers\BlogController;
-use App\Http\Controllers\BranchController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HeadController;
-use App\Http\Controllers\HostelFeeController;
 use App\Http\Controllers\ImamController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\MenuPermissionController;
-use App\Http\Controllers\MiscellaniousController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ProgramScheduleController;
 use App\Http\Controllers\RamadanController;
-use App\Http\Controllers\ReportController;
-use App\Http\Controllers\SessionHeadController;
 use App\Http\Controllers\ShuraController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\StripeController;
-use App\Http\Controllers\StudentBillController;
-use App\Http\Controllers\StudentBillPaymentController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\VolunteerController;
@@ -32,13 +23,9 @@ use App\Http\Controllers\WebMenuController;
 use App\Http\Controllers\WebSubMenuController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\AuthController;
-use \App\Http\Controllers\SessionsController;
-use \App\Http\Controllers\YearController;
 use \App\Http\Controllers\SettingController;
 use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\CommonController;
-use \App\Http\Controllers\SupportController;
-use \App\Http\Controllers\SessionFeeController;
 
 Route::post('login', [AuthController::class, 'login']);
 
@@ -81,6 +68,8 @@ Route::group(['middleware' => ['jwt:api']], function () {
     Route::apiResource('customers',CustomerController::class);
     Route::get('search/customers/{query}', [CustomerController::class,'search']);
     Route::get('get-all-customer-events', [CustomerController::class,'getAllCustomerEvents']);
+    Route::get('export-customer', [CustomerController::class,'exportCustomer']);
+    Route::get('export-event', [CustomerController::class,'exportEvent']);
     //web menu
     Route::apiResource('web-menu',WebMenuController::class);
     Route::get('search/web-menu/{query}', [WebMenuController::class,'search']);
@@ -164,9 +153,8 @@ Route::group(['middleware' => 'CustomerAuth'], function () {
     Route::get('donate-print/{id}', [CustomerAuthController::class, 'donatePrint']);
 
     Route::get('join-events', [CustomerController::class, 'joinEvents']);
+    Route::post('get-all-invoice-data', [CustomerController::class, 'invoiceData']);
 });
-
-
 
 Route::get('get-pages', [\App\Http\Controllers\Api\Frontend\PagesController::class, 'getPages']);
 Route::get('get-advisory-board', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getAdvisoryBoard']);

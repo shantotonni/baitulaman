@@ -11,11 +11,15 @@
                   <div class="flex-grow-1">
                     <div class="row">
                       <div class="col-md-2">
-                        <input v-model="query" type="text" class="form-control" placeholder="Search">
+<!--                        <input v-model="query" type="text" class="form-control" placeholder="Search">-->
                       </div>
                     </div>
                   </div>
                   <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-sm" @click="eventExport">
+                      <i class="fas fa-sync"></i>
+                      Export
+                    </button>
                     <button type="button" class="btn btn-primary btn-sm" @click="reload">
                       <i class="fas fa-sync"></i>
                       Reload
@@ -70,12 +74,14 @@
         </div>
       </div>
     </div>
+    <data-export/>
   </div>
 </template>
 
 <script>
 import {baseurl} from '../../base_url'
 import {VueEditor} from "vue2-editor";
+import {bus} from "../../app";
 
 export default {
   components: {
@@ -138,6 +144,24 @@ export default {
       this.getAllCustomerEvents();
       this.query = "";
       this.$toaster.success('Data Successfully Refresh');
+    },
+    eventExport(){
+      axios.get(baseurl + 'api/export-event')
+          .then((response)=>{
+            let dataSets = response.data.data;
+            console.log(dataSets)
+            if (dataSets.length > 0) {
+              let columns = Object.keys(dataSets[0]);
+              columns = columns.filter((item) => item !== 'row_num');
+              let rex = /([A-Z])([A-Z])([a-z])|([a-z])([A-Z])/g;
+              columns = columns.map((item) => {
+                let title = item.replace(rex, '$1$4 $2$3$5')
+                return {title, key: item}
+              });
+              bus.$emit('data-table-import', dataSets, columns, 'Customer Event List')
+            }
+          }).catch((error)=>{
+      })
     },
     destroy(id) {
       Swal.fire({

@@ -20,6 +20,10 @@
 <!--                      <i class="fas fa-plus"></i>-->
 <!--                      Add Customer-->
 <!--                    </button>-->
+                    <button type="button" class="btn btn-success btn-sm" @click="exportCustomer">
+                      <i class="fas fa-plus"></i>
+                      Export
+                    </button>
                     <button type="button" class="btn btn-primary btn-sm" @click="reload">
                       <i class="fas fa-sync"></i>
                       Reload
@@ -165,10 +169,12 @@
         </div>
       </div>
     </div>
+    <data-export/>
   </div>
 </template>
 
 <script>
+import {bus} from "../../app";
 import {baseurl} from '../../base_url'
 import {VueEditor} from "vue2-editor";
 
@@ -268,6 +274,24 @@ export default {
       }).catch(e => {
         this.isLoading = false;
       });
+    },
+    exportCustomer(){
+      axios.get(baseurl + 'api/export-customer')
+          .then((response)=>{
+            let dataSets = response.data.data;
+            console.log(dataSets)
+            if (dataSets.length > 0) {
+              let columns = Object.keys(dataSets[0]);
+              columns = columns.filter((item) => item !== 'row_num');
+              let rex = /([A-Z])([A-Z])([a-z])|([a-z])([A-Z])/g;
+              columns = columns.map((item) => {
+                let title = item.replace(rex, '$1$4 $2$3$5')
+                return {title, key: item}
+              });
+              bus.$emit('data-table-import', dataSets, columns, 'Customer List')
+            }
+          }).catch((error)=>{
+      })
     },
     destroy(id) {
       Swal.fire({
