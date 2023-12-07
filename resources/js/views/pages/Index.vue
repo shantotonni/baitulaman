@@ -33,6 +33,7 @@
                         <th>SN</th>
                         <th>Page Name</th>
                         <th>Slug</th>
+                        <th>Status</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -43,6 +44,7 @@
                       <th class="text-center" scope="row">{{ ++i }}</th>
                       <td class="text-left">{{ page.title }}</td>
                       <td class="text-left">{{ page.slug }}</td>
+                      <td class="text-left">{{ page.status }}</td>
                       <td class="text-center">
                         <router-link :to="`page-details/${page.id}`" class="btn btn-primary btn-sm btn-xs"><i class="far fa-eye"></i></router-link>
                         <button @click="edit(page)" class="btn btn-success btn-sm">
@@ -84,6 +86,16 @@
                       <label>Page Name</label>
                       <input type="text" name="title" v-model="form.title" class="form-control" :class="{ 'is-invalid': form.errors.has('title') }">
                       <div class="error" v-if="form.errors.has('title')" v-html="form.errors.get('title')" />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Status</label>
+                      <select name="status" id="" v-model="form.status" class="form-control">
+                        <option value="Y">Active</option>
+                        <option value="N">Inactive</option>
+                      </select>
+                      <div class="error" v-if="form.errors.has('status')" v-html="form.errors.get('status')" />
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -131,6 +143,7 @@ export default {
         id :'',
         title :'',
         body :'',
+        status :'Y',
       }),
     }
   },

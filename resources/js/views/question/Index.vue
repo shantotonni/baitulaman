@@ -34,8 +34,8 @@
                       <th>Name</th>
                       <th>Email</th>
                       <th>Message</th>
-                      <th>Status</th>
-                      <th>Action</th>
+<!--                      <th>Status</th>-->
+<!--                      <th>Action</th>-->
                     </tr>
                     </thead>
                     <tbody>
@@ -44,13 +44,13 @@
                       <td class="text-left">{{ question.name }}</td>
                       <td class="text-left">{{ question.email }}</td>
                       <td class="text-left">{{ question.message }}</td>
-                      <td class="text-left">
-                        <span v-if="question.status ==='pending'" class="badge badge-danger">Pending</span>
-                        <span v-if="question.status ==='done'" class="badge badge-danger">Done</span>
-                      </td>
-                      <td class="text-center">
-                        <button @click="reply(question.id)" class="btn btn-success btn-sm" type="button">Reply</button>
-                      </td>
+<!--                      <td class="text-left">-->
+<!--                        <span v-if="question.status ==='pending'" class="badge badge-danger">Pending</span>-->
+<!--                        <span v-if="question.status ==='done'" class="badge badge-danger">Done</span>-->
+<!--                      </td>-->
+<!--                      <td class="text-center">-->
+<!--                        <button @click="reply(question.id)" class="btn btn-success btn-sm" type="button">Reply</button>-->
+<!--                      </td>-->
                     </tr>
                     </tbody>
                   </table>

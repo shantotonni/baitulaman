@@ -15,9 +15,9 @@ class DonationCollection extends ResourceCollection
                     'purpose'=>$donation->purpose,
                     'amount'=>$donation->amount,
                     'date'=>date('Y-m-d',strtotime($donation->created_at)),
-                    'customer_name'=>isset($donation->customer) ? $donation->customer->name: '',
-                    'customer_email'=>isset($donation->customer) ? $donation->customer->email: '',
-                    'customer_phone'=>isset($donation->customer) ? $donation->customer->phone: '',
+                    'name'=>$donation->name,
+                    'email'=>$donation->email,
+                    'mobile'=>$donation->mobile,
                 ];
             })
         ];

@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="container-fluid">
-      <breadcrumb :options="['Slider']"/>
+      <breadcrumb :options="['Gallery']"/>
       <div class="row">
         <div class="col-xl-12">
           <div class="card">
@@ -11,19 +11,19 @@
                   <div class="flex-grow-1">
                     <div class="row">
                       <div class="col-md-2">
-                        <input v-model="query" type="text" class="form-control" placeholder="Search">
+<!--                        <input v-model="query" type="text" class="form-control" placeholder="Search">-->
                       </div>
                     </div>
                   </div>
                   <div class="card-tools">
                     <button type="button" class="btn btn-success btn-sm" @click="createSlider">
                       <i class="fas fa-plus"></i>
-                      Add Slider
+                      Add Gallery
                     </button>
-                    <button type="button" class="btn btn-primary btn-sm" @click="reload">
-                      <i class="fas fa-sync"></i>
-                      Reload
-                    </button>
+<!--                    <button type="button" class="btn btn-primary btn-sm" @click="reload">-->
+<!--                      <i class="fas fa-sync"></i>-->
+<!--                      Reload-->
+<!--                    </button>-->
                   </div>
                 </div>
                 <div class="table-responsive">
@@ -31,7 +31,7 @@
                     <thead>
                       <tr>
                         <th>SN</th>
-                        <th>Slider Name</th>
+                        <th>Title</th>
                         <th>Image</th>
                         <th>Order</th>
                         <th>Status</th>
@@ -39,26 +39,18 @@
                       </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(slider, i) in sliders"
-                        :key="slider.id"
-                        v-if="sliders.length">
+                    <tr v-for="(gallery, i) in galleries" :key="gallery.id" v-if="galleries.length">
                       <th class="text-center" scope="row">{{ ++i }}</th>
-                      <td class="text-left">{{ slider.title }}</td>
+                      <td class="text-left">{{ gallery.title }}</td>
                       <td class="text-left">
-                        <img v-if="slider.image" height="40" width="40"
-                             :src="tableImage(slider.image)" alt="">
+                        <img v-if="gallery.image" height="40" width="40" :src="tableImage(gallery.image)" alt="">
                       </td>
-                      <td class="text-right">{{ slider.ordering }}</td>
-                      <td class="text-left">{{ slider.status }}</td>
+                      <td class="text-right">{{ gallery.ordering }}</td>
+                      <td class="text-left">{{ gallery.status }}</td>
                       <td class="text-center">
-                        <router-link :to="`slider-details/${slider.id}`" class="btn btn-primary btn-sm btn-xs"><i class="far fa-eye"></i></router-link>
-
-                        <button @click="edit(slider)" class="btn btn-success btn-sm">
-                          <i
-                              class="far fa-edit"></i></button>
-                        <button @click="destroy(slider.id)"
-                                class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>
-                        </button>
+                        <router-link :to="`slider-details/${gallery.id}`" class="btn btn-primary btn-sm btn-xs"><i class="far fa-eye"></i></router-link>
+                        <button @click="edit(gallery)" class="btn btn-success btn-sm"><i class="far fa-edit"></i></button>
+                        <button @click="destroy(gallery.id)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                       </td>
                     </tr>
                     </tbody>
@@ -80,7 +72,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title mt-0" id="myLargeModalLabel">{{ editMode ? "Edit" : "Add" }} Slider</h5>
+            <h5 class="modal-title mt-0" id="myLargeModalLabel">{{ editMode ? "Edit" : "Add" }} Gallery</h5>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true" @click="closeModal">×</button>
           </div>
           <form @submit.prevent="editMode ? update() : store()" @keydown="form.onKeydown($event)">
@@ -89,7 +81,7 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>Slider Name</label>
+                      <label>Gallery Title</label>
                       <input type="text" name="title" v-model="form.title" class="form-control" :class="{ 'is-invalid': form.errors.has('title') }">
                       <div class="error" v-if="form.errors.has('title')" v-html="form.errors.get('title')" />
                     </div>
@@ -104,39 +96,20 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Status</label>
-                      <select type="Status" name="status" v-model="form.status"
-                              class="form-control"
-                              :class="{ 'is-invalid': form.errors.has('status') }">
+                      <select type="Status" name="status" v-model="form.status" class="form-control" :class="{ 'is-invalid': form.errors.has('status') }">
                         <option disabled value="">Select Status</option>
-                        <option >
-                          Active
-                        </option>
-                        <option >
-                          Inactive
-                        </option>
+                        <option >Active</option>
+                        <option >Inactive</option>
                       </select>
-                      <div class="error" v-if="form.errors.has('status')"
-                           v-html="form.errors.get('status')"/>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Link</label>
-                      <input type="text" name="link" v-model="form.link" class="form-control" :class="{ 'is-invalid': form.errors.has('link') }">
-                      <div class="error" v-if="form.errors.has('link')" v-html="form.errors.get('link')" />
+                      <div class="error" v-if="form.errors.has('status')" v-html="form.errors.get('status')"/>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Image <small>(Image type:jpeg,jpg,png,svg)</small></label>
-                      <input @change="changeImage($event)" type="file" name="image"
-                             class="form-control"
-                             :class="{ 'is-invalid': form.errors.has('image') }">
-                      <div class="error" v-if="form.errors.has('image')"
-                           v-html="form.errors.get('image')"/>
-                      <img v-if="form.image" :src="showImage(form.image)" alt="" height="40px"
-                           width="40px">
+                      <input @change="changeImage($event)" type="file" name="image" class="form-control" :class="{ 'is-invalid': form.errors.has('image') }">
+                      <div class="error" v-if="form.errors.has('image')" v-html="form.errors.get('image')"/>
+                      <img v-if="form.image" :src="showImage(form.image)" alt="" height="40px" width="40px">
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -146,7 +119,6 @@
                         <vue-editor name="paragraph" v-model="form.paragraph" :class="{ 'is-invalid': form.errors.has('paragraph') }"></vue-editor>
                         <div class="error" v-if="form.errors.has('paragraph')" v-html="form.errors.get('paragraph')"/>
                       </div>
-
                     </div>
                   </div>
                 </div>
@@ -154,7 +126,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="closeModal">Close</button>
-              <button :disabled="form.busy" type="submit" class="btn btn-primary">{{ editMode ? "Update" : "Create" }} Slider</button>
+              <button :disabled="form.busy" type="submit" class="btn btn-primary">{{ editMode ? "Update" : "Create" }} Gallery</button>
             </div>
           </form>
         </div>
@@ -173,7 +145,7 @@ export default {
   },
   data() {
     return {
-      sliders: [],
+      galleries: [],
       pagination: {
         current_page: 1
       },
@@ -184,7 +156,6 @@ export default {
         id :'',
         title :'',
         paragraph :'',
-        link :'',
         image :'',
         status :'',
         ordering :'',
@@ -194,21 +165,21 @@ export default {
   watch: {
     query: function(newQ, old) {
       if (newQ === "") {
-        this.getAllSlider();
+        this.getAllGallery();
       } else {
         this.searchData();
       }
     }
   },
   mounted() {
-    document.title = 'Slider List | Baitulaman';
-    this.getAllSlider();
+    document.title = 'Gallery List | Baitulaman';
+    this.getAllGallery();
   },
   methods: {
-    getAllSlider(){
+    getAllGallery(){
       this.isLoading = true;
-      axios.get(baseurl + 'api/sliders?page='+ this.pagination.current_page).then((response)=>{
-        this.sliders = response.data.data;
+      axios.get(baseurl + 'api/gallery?page='+ this.pagination.current_page).then((response)=>{
+        this.galleries = response.data.data;
         this.pagination = response.data.meta;
         this.isLoading = false;
       }).catch((error)=>{
@@ -216,15 +187,15 @@ export default {
       })
     },
     searchData(){
-      axios.get(baseurl + "api/search/sliders/" + this.query + "?page=" + this.pagination.current_page).then(response => {
-        this.sliders = response.data.data;
+      axios.get(baseurl + "api/search/gallery/" + this.query + "?page=" + this.pagination.current_page).then(response => {
+        this.galleries = response.data.data;
         this.pagination = response.data.meta;
       }).catch(e => {
         this.isLoading = false;
       });
     },
     reload(){
-      this.getAllSlider();
+      this.getAllGallery();
       this.query = "";
       this.$toaster.success('Data Successfully Refresh');
     },
@@ -239,9 +210,11 @@ export default {
     },
     store(){
       this.form.busy = true;
-      this.form.post(baseurl + "api/sliders").then(response => {
+      this.form.post(baseurl + "api/gallery").then(response => {
+        this.form.reset();
+        this.form.clear();
         $("#SliderModal").modal("hide");
-        this.getAllSlider();
+        this.getAllGallery();
       }).catch(e => {
         this.isLoading = false;
       });
@@ -255,9 +228,9 @@ export default {
     },
     update(){
       this.form.busy = true;
-      this.form.put(baseurl + "api/sliders/" + this.form.id).then(response => {
+      this.form.put(baseurl + "api/gallery/" + this.form.id).then(response => {
         $("#SliderModal").modal("hide");
-        this.getAllSlider();
+        this.getAllGallery();
       }).catch(e => {
         this.isLoading = false;
       });
@@ -275,11 +248,11 @@ export default {
       if (img.length > 100) {
         return this.form.image;
       } else {
-        return window.location.origin + "/images/slider/" + this.form.image;
+        return window.location.origin + "/images/gallery/" + this.form.image;
       }
     },
     tableImage(image) {
-      return window.location.origin + "/images/slider/" + image;
+      return window.location.origin + "/images/gallery/" + image;
     },
     destroy(id) {
       Swal.fire({
@@ -292,8 +265,8 @@ export default {
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.delete('api/sliders/' + id).then((response) => {
-            this.getAllSlider();
+          axios.delete('api/gallery/' + id).then((response) => {
+            this.getAllGallery();
             Swal.fire(
                 'Deleted!',
                 'Your file has been deleted.',

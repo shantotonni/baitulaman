@@ -189,8 +189,6 @@ export default {
   mounted() {
 
     document.title = 'User List | Baitulaman';
-
-
     this.getAllUser();
   },
   methods: {

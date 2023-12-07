@@ -21,6 +21,7 @@ class EventCollection extends ResourceCollection
                     'title'=>$event->title,
                     'description'=>$event->description,
                     'event_date'=> date('Y-m-d',strtotime($event->event_date)),
+                    'event_time'=> date('h:i:s',strtotime($event->event_date)),
                     'ordering'=>$event->ordering,
                     'status'=>$event->status,
                     'image'=>$event->image,

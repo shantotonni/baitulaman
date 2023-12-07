@@ -22,6 +22,7 @@ class PageController extends Controller
     {
         $input = $request->all();
         $input['slug'] = Str::slug($input['title']);
+        $input['status'] = 'Y';
 
         Page::create($input);
 
@@ -34,7 +35,7 @@ class PageController extends Controller
         $input = $request->all();
 
         $input['slug'] = Str::slug($input['title']);
-
+        $input['status'] = $input['status'];
         $page->update($input);
 
         return response()->json(['message', 'Page updated successfully', 200]);

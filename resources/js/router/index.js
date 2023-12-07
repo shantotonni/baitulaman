@@ -9,11 +9,13 @@ import MenuList from '../views/menu/List'
 import MenuPermission from '../views/users/MenuPermission'
 import SliderList from '../views/slider/Index'
 import SliderDetails from '../views/slider/Details.vue'
+import GalleryList from '../views/slider/Index'
 import EventList from '../views/event/Index'
 import EventDetails from '../views/event/Details.vue'
 import ProgramList from '../views/program/Index'
 import ProgramDetails from '../views/program/Details.vue'
 import CustomerList from '../views/customer/Index'
+import DonationList from '../views/donation/Index'
 import WebMenu from '../views/web_menu/Index'
 import SubMenu from '../views/sub_menu/Index'
 import PageList from '../views/pages/Index'
@@ -35,6 +37,8 @@ import Contact from '../views/contact/Index.vue'
 import Mailing from '../views/mailing/Index.vue'
 import Question from '../views/question/Index.vue'
 import CustomerEvents from '../views/customer/CustomerEvents.vue'
+import MemberShipList from '../views/member_ship/Index.vue'
+import MaktabList from '../views/maktab/Index.vue'
 import Backups from '../views/backups/Index.vue'
 
 import NotFound from '../views/404/Index';
@@ -80,12 +84,14 @@ const routes = [
             {path: baseurl + 'menu-list', name: 'MenuList', component: MenuList},
             {path: baseurl + 'user-menu-permission', name: 'UserMenuPermission', component: MenuPermission},
             {path: baseurl + 'slider-list', name: 'SliderList', component: SliderList},
+            {path: baseurl + 'gallery-list', name: 'GalleryList', component: GalleryList},
             {path: baseurl + 'slider-details/:id', name: 'SliderDetails', component: SliderDetails},
             {path: baseurl + 'event-list', name: 'EventList', component: EventList},
             {path: baseurl + 'event-details/:id', name: 'EventDetails', component: EventDetails},
             {path: baseurl + 'program-list', name: 'ProgramList', component: ProgramList},
             {path: baseurl + 'program-details/:id', name: 'ProgramDetails', component: ProgramDetails},
             {path: baseurl + 'customer-list', name: 'CustomerList', component: CustomerList},
+            {path: baseurl + 'donation-list', name: 'DonationList', component: DonationList},
             {path: baseurl + 'web-sub-menu', name: 'SubMenu', component: SubMenu},
             {path: baseurl + 'web-menu', name: 'WebMenu', component: WebMenu},
             {path: baseurl + 'our-imam', name: 'OurImam', component: OurImam},
@@ -108,6 +114,8 @@ const routes = [
             {path: baseurl + 'question-list', name: 'Question', component: Question},
             {path: baseurl + 'question-list', name: 'Question', component: Question},
             {path: baseurl + 'customer-events', name: 'CustomerEvents', component: CustomerEvents},
+            {path: baseurl + 'membership-list', name: 'MemberShipList', component: MemberShipList},
+            {path: baseurl + 'maktab-list', name: 'MaktabList', component: MaktabList},
             {path: baseurl + 'backups', name: 'Backups', component: Backups},
         ],
         beforeEnter(to, from, next) {

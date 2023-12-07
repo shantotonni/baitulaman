@@ -7,6 +7,7 @@ use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Resources\User\UserCollection;
 use App\Models\Advances;
 use App\Models\Menu;
+use App\Models\Role;
 use App\Models\SubMenu;
 use App\Models\SubMenuPermission;
 use App\Models\User;
@@ -51,7 +52,6 @@ class UserController extends Controller
 
         return response()->json(['message'=>'User Created Successfully'],200);
     }
-
 
     public function update(UserUpdateRequest $request, $id){
 
@@ -120,6 +120,13 @@ class UserController extends Controller
             User::where('id', $id)->delete();
             return response()->json(['message' => "User deleted successfully"]);
         }
+    }
+
+    public function getAllRole(){
+        $roles = Role::query()->get();
+        return response()->json([
+           'roles'=>$roles
+        ]);
     }
 
     public function getUserInfo($staffId)

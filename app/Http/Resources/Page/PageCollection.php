@@ -21,6 +21,7 @@ class PageCollection extends ResourceCollection
                     'title'=>$page->title,
                     'body'=>$page->body,
                     'slug'=>$page->slug,
+                    'status'=>$page->status,
                 ];
             })
         ];

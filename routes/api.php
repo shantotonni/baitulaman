@@ -7,11 +7,13 @@ use App\Http\Controllers\BankController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HeadController;
 use App\Http\Controllers\ImamController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\MenuPermissionController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ProgramScheduleController;
 use App\Http\Controllers\RamadanController;
@@ -43,6 +45,7 @@ Route::group(['middleware' => ['jwt:api']], function () {
     Route::apiResource('users',UserController::class);
     Route::get('search/users/{query}', [UserController::class,'search']);
     Route::get('get-all-users/', [UserController::class, 'getAllUser']);
+    Route::get('get-all-role/', [UserController::class, 'getAllRole']);
 
     Route::apiResource('student',StudentController::class);
     Route::get('search/student/{query}', [StudentController::class,'search']);
@@ -51,10 +54,14 @@ Route::group(['middleware' => ['jwt:api']], function () {
     Route::post('student-details', [StudentController::class,'getStudentDetails']);
 
 
-//Slider
+    //Slider
     Route::apiResource('sliders',SliderController::class);
     Route::get('slider-details/{id}',[SliderController::class,'show']);
     Route::get('search/sliders/{query}', [SliderController::class,'search']);
+
+    //Gallery
+    Route::apiResource('gallery',GalleryController::class);
+    Route::get('search/gallery/{query}', [GalleryController::class,'search']);
 
     //event
     Route::apiResource('events',EventController::class);
@@ -98,6 +105,7 @@ Route::group(['middleware' => ['jwt:api']], function () {
     Route::apiResource('volunteers',VolunteerController::class);
     Route::get('volunteer-details/{id}',[VolunteerController::class,'show']);
     Route::get('search/blogs/{query}', [VolunteerController::class,'search']);
+    Route::get('export-volunteer', [VolunteerController::class,'exportVolunteer']);
 
     //advisor
     Route::apiResource('advisors',AdvisorsController::class);
@@ -136,11 +144,14 @@ Route::group(['middleware' => ['jwt:api']], function () {
 
     Route::get('get-all-session', [CommonController::class,'getAllSession']);
 
-
     //new route created by shanto
     Route::get('contacts', [\App\Http\Controllers\Api\ContactController::class,'list']);
     Route::get('mailing', [\App\Http\Controllers\Api\MailingController::class,'list']);
     Route::get('questions', [\App\Http\Controllers\Api\QuestionController::class,'list']);
+    Route::get('membership', [\App\Http\Controllers\MembershipController::class,'list']);
+    Route::get('export-member-ship', [\App\Http\Controllers\MembershipController::class,'exportMemberShip']);
+    Route::get('maktab', [\App\Http\Controllers\MaktabController::class,'list']);
+    Route::get('export-maktab', [\App\Http\Controllers\MaktabController::class,'exportMaktab']);
     Route::post('question-reply', [\App\Http\Controllers\Api\QuestionController::class,'replyStore']);
 
 });
@@ -173,22 +184,31 @@ Route::get('get-ramadan-calendar', [\App\Http\Controllers\Api\Frontend\FrontCont
 Route::get('get-our-program', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getOurProgram']);
 Route::get('get-program-details', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getOurProgramDetails']);
 Route::get('get-our-events', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getOurEvents']);
+Route::get('get-our-gallery', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getOurGallery']);
 Route::get('get-testimonial', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getTestimonial']);
 Route::post('mailing', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'mailing']);
 Route::post('contact', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'contact']);
 Route::post('volunteer', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'volunteer']);
 Route::post('question', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'question']);
 Route::post('question', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'question']);
+Route::post('store-maktab-registration', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'storeMaktabRegistration']);
+Route::post('store-membership', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'storeMemberShip']);
+
+//donate route
+Route::post('charge', [PaymentController::class, 'charge']);
+Route::get('donation-list', [PaymentController::class, 'donationList']);
+Route::get('export-donation', [PaymentController::class, 'exportDonation']);
+Route::get('get-api-key', [PaymentController::class, 'getApiKey']);
 
 //stript payment
-Route::get('get-session', [StripeController::class, 'getSession']);
-Route::get('checkout', [StripeController::class, 'checkout'])->name('checkout');
-Route::get('success', [StripeController::class, 'success'])->name('success');
+//Route::get('get-session', [StripeController::class, 'getSession']);
+//Route::get('checkout', [StripeController::class, 'checkout'])->name('checkout');
+//Route::get('success', [StripeController::class, 'success'])->name('success');
 
 //new
-Route::post('payment/initiate', [StripeController::class, 'initiatePayment']);
-Route::post('payment/complete', [StripeController::class, 'completePayment']);
-Route::post('payment/failure', [StripeController::class, 'failPayment']);
+//Route::post('payment/initiate', [StripeController::class, 'initiatePayment']);
+//Route::post('payment/complete', [StripeController::class, 'completePayment']);
+//Route::post('payment/failure', [StripeController::class, 'failPayment']);
 
 //san
-Route::post('payment/store', [StripeController::class, 'paymentStore']);
+//Route::post('payment/store', [StripeController::class, 'paymentStore']);
