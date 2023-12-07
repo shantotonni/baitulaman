@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\QuestionCollection;
 use App\Mail\QuestionAnsMail;
+use App\Models\AskTheBoard;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -33,6 +34,12 @@ class QuestionController extends Controller
             'message' => 'Something went wrong! '.$exception->getMessage()
             ],500);
             }
-        }
-
     }
+
+    public function boardQuestionList(){
+        $questions = AskTheBoard::orderBy('created_at','desc')->paginate(12);
+        return new QuestionCollection($questions);
+    }
+
+
+}

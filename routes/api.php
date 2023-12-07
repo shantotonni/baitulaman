@@ -111,6 +111,9 @@ Route::group(['middleware' => ['jwt:api']], function () {
     Route::apiResource('advisors',AdvisorsController::class);
     Route::get('search/advisors/{query}', [AdvisorsController::class,'search']);
 
+    //sub committee
+    Route::apiResource('sub-committee',\App\Http\Controllers\SubCommitteeController::class);
+
     //shura
     Route::apiResource('shuras',ShuraController::class);
     Route::get('search/shuras/{query}', [ShuraController::class,'search']);
@@ -148,6 +151,7 @@ Route::group(['middleware' => ['jwt:api']], function () {
     Route::get('contacts', [\App\Http\Controllers\Api\ContactController::class,'list']);
     Route::get('mailing', [\App\Http\Controllers\Api\MailingController::class,'list']);
     Route::get('questions', [\App\Http\Controllers\Api\QuestionController::class,'list']);
+    Route::get('board-questions-list', [\App\Http\Controllers\Api\QuestionController::class,'boardQuestionList']);
     Route::get('membership', [\App\Http\Controllers\MembershipController::class,'list']);
     Route::get('export-member-ship', [\App\Http\Controllers\MembershipController::class,'exportMemberShip']);
     Route::get('maktab', [\App\Http\Controllers\MaktabController::class,'list']);
@@ -177,6 +181,7 @@ Route::group(['middleware' => 'CustomerAuth'], function () {
 Route::get('get-pages', [\App\Http\Controllers\Api\Frontend\PagesController::class, 'getPages']);
 Route::get('get-advisory-board', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getAdvisoryBoard']);
 Route::get('get-shura-committee', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getShuraCommittee']);
+Route::get('get-sub-committee-list', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getSubCommittee']);
 Route::get('get-imam', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getImam']);
 Route::post('ask-the-imam', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'askTheImam']);
 Route::get('get-program-schedule', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getProgramSchedule']);
@@ -190,7 +195,7 @@ Route::post('mailing', [\App\Http\Controllers\Api\Frontend\FrontController::clas
 Route::post('contact', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'contact']);
 Route::post('volunteer', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'volunteer']);
 Route::post('question', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'question']);
-Route::post('question', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'question']);
+Route::post('ask-the-board', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'askTheBoard']);
 Route::post('store-maktab-registration', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'storeMaktabRegistration']);
 Route::post('store-membership', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'storeMemberShip']);
 

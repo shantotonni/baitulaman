@@ -27,6 +27,7 @@ import BlogDetails from '../views/blog/Details.vue'
 import VolunteerList from '../views/volunteer/Index.vue'
 
 import AdvisorsBoard from '../views/advisors_board/Index.vue'
+import SubCommitteeList from '../views/sub_committee/Index.vue'
 import ShuraCommitee from '../views/shura_committee/Index.vue'
 import ProgramSchedule from '../views/program_schedule/Index.vue'
 import RamadanCalendar from '../views/ramadan/Index.vue'
@@ -36,10 +37,12 @@ import TestimonialDetails from '../views/testimonial/Details.vue'
 import Contact from '../views/contact/Index.vue'
 import Mailing from '../views/mailing/Index.vue'
 import Question from '../views/question/Index.vue'
+import BoardQuestion from '../views/question/BoardQuestion.vue'
 import CustomerEvents from '../views/customer/CustomerEvents.vue'
 import MemberShipList from '../views/member_ship/Index.vue'
 import MaktabList from '../views/maktab/Index.vue'
 import Backups from '../views/backups/Index.vue'
+import DonationMenuControllerList from '../views/donation_menu_controller/Index.vue'
 
 import NotFound from '../views/404/Index';
 import {baseurl} from '../base_url'
@@ -102,6 +105,7 @@ const routes = [
             {path: baseurl + 'page-list', name: 'PageList', component: PageList},
             {path: baseurl + 'page-details/:id', name: 'PageDetails', component: PageDetails},
             {path: baseurl + 'advisors-board', name: 'AdvisorsBoard', component: AdvisorsBoard},
+            {path: baseurl + 'sub-committee-list', name: 'SubCommitteeList', component: SubCommitteeList},
             {path: baseurl + 'shura-commitee', name: 'ShuraCommitee', component: ShuraCommitee},
             {path: baseurl + 'program-schedule', name: 'ProgramSchedule', component: ProgramSchedule},
             {path: baseurl + 'ramadan-calendar', name: 'RamadanCalendar', component: RamadanCalendar},
@@ -112,11 +116,12 @@ const routes = [
             {path: baseurl + 'contact-list', name: 'Contact', component: Contact},
             {path: baseurl + 'mailing-list', name: 'Mailing', component: Mailing},
             {path: baseurl + 'question-list', name: 'Question', component: Question},
-            {path: baseurl + 'question-list', name: 'Question', component: Question},
+            {path: baseurl + 'board-question-list', name: 'BoardQuestion', component: BoardQuestion},
             {path: baseurl + 'customer-events', name: 'CustomerEvents', component: CustomerEvents},
             {path: baseurl + 'membership-list', name: 'MemberShipList', component: MemberShipList},
             {path: baseurl + 'maktab-list', name: 'MaktabList', component: MaktabList},
             {path: baseurl + 'backups', name: 'Backups', component: Backups},
+            {path: baseurl + 'donation-menu-controller-list', name: 'DonationMenuControllerList', component: DonationMenuControllerList},
         ],
         beforeEnter(to, from, next) {
             checkToken(to, from, next);

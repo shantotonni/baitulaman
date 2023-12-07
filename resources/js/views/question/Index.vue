@@ -33,6 +33,7 @@
                       <th>SN</th>
                       <th>Name</th>
                       <th>Email</th>
+                      <th>Subject</th>
                       <th>Message</th>
 <!--                      <th>Status</th>-->
 <!--                      <th>Action</th>-->
@@ -43,6 +44,7 @@
                       <th class="text-center" scope="row">{{ ++i }}</th>
                       <td class="text-left">{{ question.name }}</td>
                       <td class="text-left">{{ question.email }}</td>
+                      <td class="text-left">{{ question.subject }}</td>
                       <td class="text-left">{{ question.message }}</td>
 <!--                      <td class="text-left">-->
 <!--                        <span v-if="question.status ==='pending'" class="badge badge-danger">Pending</span>-->

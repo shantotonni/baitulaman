@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Event\EventCollection;
 use App\Http\Resources\GalleryCollection;
 use App\Models\Advisors;
+use App\Models\AskTheBoard;
 use App\Models\Contact;
 use App\Models\Event;
 use App\Models\Gallery;
@@ -18,6 +19,7 @@ use App\Models\ProgramSchedule;
 use App\Models\Question;
 use App\Models\Ramadan;
 use App\Models\Shura;
+use App\Models\SubCommittee;
 use App\Models\Testimonial;
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
@@ -35,6 +37,13 @@ class FrontController extends Controller
         $shura_committee = Shura::orderBy('created_at','desc')->get();
         return response()->json([
            'shura_committee' => $shura_committee
+        ]);
+    }
+
+    public function getSubCommittee(){
+        $sub = SubCommittee::orderBy('created_at','desc')->get();
+        return response()->json([
+           'sub' => $sub
         ]);
     }
 
@@ -162,6 +171,29 @@ class FrontController extends Controller
         ]);
 
         $question = new Question();
+        $question->name = $request->name;
+        $question->email = $request->email;
+        $question->subject = $request->subject;
+        $question->message = $request->message;
+        $question->status = 'pending';
+        $question->save();
+
+        return response()->json([
+            'status'=>'success',
+            'message'=>'Successfully Inserted'
+        ]);
+    }
+
+
+   public function askTheBoard(Request $request){
+        $this->validate($request,[
+            'name'=>'required',
+            'email'=>'required',
+            'subject'=>'required',
+            'message'=>'required',
+        ]);
+
+        $question = new AskTheBoard();
         $question->name = $request->name;
         $question->email = $request->email;
         $question->subject = $request->subject;
