@@ -32,7 +32,7 @@ class EventController extends Controller
         $event = new Event();
         $event->title = $request->title;
         $event->description = $request->description;
-        $event->event_date = date('Y-m-d',strtotime($request->event_date));
+        $event->event_date = date('Y-m-d H:i:s',strtotime($request->event_date));
         $event->ordering = $request->ordering;
         $event->image = $name;
         $event->status =  $request->status;
@@ -67,7 +67,7 @@ class EventController extends Controller
 
         $event->title = $request->title;
         $event->description = $request->description;
-        $event->event_date = date('Y-m-d',strtotime($event->event_date));
+        $event->event_date = date('Y-m-d H:i:s',strtotime($event->event_date));
         $event->ordering = $request->ordering;
         $event->image = $name;
         $event->status =  $request->status;
@@ -81,7 +81,6 @@ class EventController extends Controller
         return response()->json([
             'data'=>$events
         ]);
-
     }
 
     public function destroy($id)

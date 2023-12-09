@@ -31,6 +31,8 @@ class GalleryController extends Controller
         $gallery->ordering = $request->ordering;
         $gallery->image = $name;
         $gallery->status =  $request->status;
+        $gallery->video_status =  $request->video_status;
+        $gallery->link =  $request->link;
         $gallery->save();
 
         return response()->json(['message'=>'Gallery Created Successfully'],200);
@@ -63,10 +65,11 @@ class GalleryController extends Controller
 
         $gallery->title = $request->title;
         $gallery->paragraph = $request->paragraph;
-        $gallery->status = $request->status;
         $gallery->ordering = $request->ordering;
         $gallery->image = $name;
         $gallery->status =  $request->status;
+        $gallery->video_status =  $request->video_status;
+        $gallery->link =  $request->link;
         $gallery->save();
         return response()->json(['message'=>'Gallery Updated Successfully'],200);
     }

@@ -31,29 +31,21 @@
                     <thead>
                       <tr>
                         <th>SN</th>
-                        <th>Web Menu </th>
-                        <th>Web Icon</th>
-                        <th>Slug</th>
+                        <th>Web Menu name</th>
+                        <th>Url</th>
                         <th>Status</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(webmenu, i) in webmenus"
-                        :key="webmenu.id"
-                        v-if="webmenus.length">
+                    <tr v-for="(webmenu, i) in webmenus" :key="webmenu.id" v-if="webmenus.length">
                       <th class="text-center" scope="row">{{ ++i }}</th>
                       <td class="text-left">{{ webmenu.name }}</td>
-                      <td class="text-left">{{ webmenu.icon }}</td>
-                      <td class="text-left">{{ webmenu.slug }}</td>
+                      <td class="text-left">{{ webmenu.url }}</td>
                       <td class="text-left">{{ webmenu.active }}</td>
                       <td class="text-center">
-                        <button @click="edit(webmenu)" class="btn btn-success btn-sm">
-                          <i
-                              class="far fa-edit"></i></button>
-                        <button @click="destroy(webmenu.id)"
-                                class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>
-                        </button>
+                        <button @click="edit(webmenu)" class="btn btn-success btn-sm"><i class="far fa-edit"></i></button>
+                        <button @click="destroy(webmenu.id)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                       </td>
                     </tr>
                     </tbody>
@@ -84,34 +76,27 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>Web menu</label>
+                      <label>Web menu Nmae</label>
                       <input type="text" name="name" v-model="form.name" class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
                       <div class="error" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>Web Icon</label>
-                      <input type="text" name="icon" v-model="form.icon" class="form-control" :class="{ 'is-invalid': form.errors.has('icon') }">
-                      <div class="error" v-if="form.errors.has('icon')" v-html="form.errors.get('icon')" />
+                      <label>URL</label>
+                      <input type="text" name="url" v-model="form.url" class="form-control" :class="{ 'is-invalid': form.errors.has('url') }">
+                      <div class="error" v-if="form.errors.has('url')" v-html="form.errors.get('url')" />
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Status</label>
-                      <select type="active" name="active" v-model="form.active"
-                              class="form-control"
-                              :class="{ 'is-invalid': form.errors.has('active') }">
+                      <select type="active" name="active" v-model="form.active" class="form-control" :class="{ 'is-invalid': form.errors.has('active') }">
                         <option disabled value="">Select Status</option>
-                        <option >
-                          Active
-                        </option>
-                        <option >
-                          Inactive
-                        </option>
+                        <option value="Y">Active</option>
+                        <option value="N">Inactive</option>
                       </select>
-                      <div class="error" v-if="form.errors.has('active')"
-                           v-html="form.errors.get('active')"/>
+                      <div class="error" v-if="form.errors.has('active')" v-html="form.errors.get('active')"/>
                     </div>
                   </div>
                 </div>
@@ -144,7 +129,7 @@ export default {
       form: new Form({
         id :'',
         name :'',
-        icon :'',
+        url :'',
         active :'',
       }),
     }

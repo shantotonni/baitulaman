@@ -31,10 +31,8 @@ class SliderController extends Controller
         $slider = new Slider();
         $slider->title = $request->title;
         $slider->paragraph = $request->paragraph;
-        $slider->link = $request->link;
-        $slider->ordering = $request->ordering;
+        $slider->status = $request->status;
         $slider->image = $name;
-        $slider->status =  $request->status;
         $slider->save();
 
         return response()->json(['message'=>'Slider Created Successfully'],200);
@@ -67,11 +65,8 @@ class SliderController extends Controller
 
         $slider->title = $request->title;
         $slider->paragraph = $request->paragraph;
-        $slider->link = $request->link;
         $slider->status = $request->status;
-        $slider->ordering = $request->ordering;
         $slider->image = $name;
-        $slider->status =  $request->status;
         $slider->save();
         return response()->json(['message'=>'Slider Updated Successfully'],200);
     }

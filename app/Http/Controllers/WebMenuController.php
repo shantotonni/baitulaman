@@ -13,7 +13,7 @@ class WebMenuController extends Controller
 
     public function index()
     {
-        $webmenus = WebMenu::latest()->paginate(5);
+        $webmenus = WebMenu::latest()->paginate(10);
 
         return new WebmenuCollection($webmenus);
     }
@@ -21,10 +21,7 @@ class WebMenuController extends Controller
     public function store(WebmenuStoreRequest $request)
     {
         $input = $request->all();
-        $input['slug'] = Str::slug($input['name']);
-
         WebMenu::create($input);
-
         return response()->json(['message','Menu created successfully.',200]);
     }
 
@@ -32,25 +29,19 @@ class WebMenuController extends Controller
     public function update(Request $request, WebMenu $webMenu)
     {
         $input = $request->all();
-
-        $input['slug'] = Str::slug($input['name']);
-
         $webMenu->update($input);
-
         return response()->json(['message','Menu updated successfully',200]);
     }
 
     public function destroy( WebMenu $webMenu)
     {
         $webMenu->delete();
-        return response()
-            ->json(['message','Menu deleted successfully',200]);
+        return response()->json(['message','Menu deleted successfully',200]);
     }
 
     public function search($query)
     {
-        return new WebmenuCollection(WebMenu::Where('name', 'like', "%$query%")
-            ->paginate(10));
+        return new WebmenuCollection(WebMenu::Where('name', 'like', "%$query%")->paginate(10));
     }
 
 

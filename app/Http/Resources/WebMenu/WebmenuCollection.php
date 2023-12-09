@@ -19,9 +19,8 @@ class WebmenuCollection extends ResourceCollection
                 return [
                     'id'=>$webmenu->id,
                     'name'=>$webmenu->name,
-                    'icon'=>$webmenu->icon,
+                    'url'=>$webmenu->url,
                     'active'=>$webmenu->active,
-                    'slug'=>$webmenu->slug,
                 ];
             })
         ];

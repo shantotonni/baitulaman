@@ -19,9 +19,11 @@ use App\Models\ProgramSchedule;
 use App\Models\Question;
 use App\Models\Ramadan;
 use App\Models\Shura;
+use App\Models\Slider;
 use App\Models\SubCommittee;
 use App\Models\Testimonial;
 use App\Models\Volunteer;
+use App\Models\WebMenu;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
@@ -84,8 +86,15 @@ class FrontController extends Controller
         return new EventCollection($events);
     }
 
+    public function getHomePageSlider(){
+        $slider = Slider::query()->first();
+        return response()->json([
+           'slider' => $slider
+        ]);
+    }
+
     public function getOurGallery(){
-        $gallery = Gallery::orderBy('created_at','desc')->where('status','Active')->get();
+        $gallery = Gallery::orderBy('created_at','desc')->where('status','Y')->get();
         return new GalleryCollection($gallery);
     }
 
@@ -93,6 +102,13 @@ class FrontController extends Controller
         $testimonials = Testimonial::orderBy('created_at','desc')->get();
         return response()->json([
             'testimonials' => $testimonials
+        ]);
+    }
+
+    public function getDonationMenu(){
+        $menus = WebMenu::orderBy('ordering','asc')->where('active','Y')->get();
+        return response()->json([
+            'menus' => $menus
         ]);
     }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="container-fluid">
-      <breadcrumb :options="['Gallery']"/>
+      <breadcrumb :options="['Slider']"/>
       <div class="row">
         <div class="col-xl-12">
           <div class="card">
@@ -16,10 +16,10 @@
                     </div>
                   </div>
                   <div class="card-tools">
-                    <button type="button" class="btn btn-success btn-sm" @click="createSlider">
-                      <i class="fas fa-plus"></i>
-                      Add Gallery
-                    </button>
+<!--                    <button type="button" class="btn btn-success btn-sm" @click="createSlider">-->
+<!--                      <i class="fas fa-plus"></i>-->
+<!--                      Add Slider-->
+<!--                    </button>-->
 <!--                    <button type="button" class="btn btn-primary btn-sm" @click="reload">-->
 <!--                      <i class="fas fa-sync"></i>-->
 <!--                      Reload-->
@@ -33,24 +33,22 @@
                         <th>SN</th>
                         <th>Title</th>
                         <th>Image</th>
-                        <th>Order</th>
                         <th>Status</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(gallery, i) in galleries" :key="gallery.id" v-if="galleries.length">
+                    <tr v-for="(slider, i) in sliders" :key="slider.id" v-if="sliders.length">
                       <th class="text-center" scope="row">{{ ++i }}</th>
-                      <td class="text-left">{{ gallery.title }}</td>
+                      <td class="text-left">{{ slider.title }}</td>
                       <td class="text-left">
-                        <img v-if="gallery.image" height="40" width="40" :src="tableImage(gallery.image)" alt="">
+                        <img v-if="slider.image" height="40" width="40" :src="tableImage(slider.image)" alt="">
                       </td>
-                      <td class="text-right">{{ gallery.ordering }}</td>
-                      <td class="text-left">{{ gallery.status }}</td>
+                      <td class="text-left">{{ slider.status }}</td>
                       <td class="text-center">
-                        <router-link :to="`slider-details/${gallery.id}`" class="btn btn-primary btn-sm btn-xs"><i class="far fa-eye"></i></router-link>
-                        <button @click="edit(gallery)" class="btn btn-success btn-sm"><i class="far fa-edit"></i></button>
-                        <button @click="destroy(gallery.id)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+<!--                        <router-link :to="`slider-details/${slider.id}`" class="btn btn-primary btn-sm btn-xs"><i class="far fa-eye"></i></router-link>-->
+                        <button @click="edit(slider)" class="btn btn-success btn-sm"><i class="far fa-edit"></i></button>
+<!--                        <button @click="destroy(slider.id)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>-->
                       </td>
                     </tr>
                     </tbody>
@@ -72,7 +70,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title mt-0" id="myLargeModalLabel">{{ editMode ? "Edit" : "Add" }} Gallery</h5>
+            <h5 class="modal-title mt-0" id="myLargeModalLabel">{{ editMode ? "Edit" : "Add" }} Slider</h5>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true" @click="closeModal">×</button>
           </div>
           <form @submit.prevent="editMode ? update() : store()" @keydown="form.onKeydown($event)">
@@ -84,13 +82,6 @@
                       <label>Gallery Title</label>
                       <input type="text" name="title" v-model="form.title" class="form-control" :class="{ 'is-invalid': form.errors.has('title') }">
                       <div class="error" v-if="form.errors.has('title')" v-html="form.errors.get('title')" />
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Ordering</label>
-                      <input type="number" name="ordering" v-model="form.ordering" class="form-control" :class="{ 'is-invalid': form.errors.has('ordering') }">
-                      <div class="error" v-if="form.errors.has('ordering')" v-html="form.errors.get('ordering')" />
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -126,7 +117,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="closeModal">Close</button>
-              <button :disabled="form.busy" type="submit" class="btn btn-primary">{{ editMode ? "Update" : "Create" }} Gallery</button>
+              <button :disabled="form.busy" type="submit" class="btn btn-primary">{{ editMode ? "Update" : "Create" }} Slider</button>
             </div>
           </form>
         </div>
@@ -145,7 +136,7 @@ export default {
   },
   data() {
     return {
-      galleries: [],
+      sliders: [],
       pagination: {
         current_page: 1
       },
@@ -158,7 +149,6 @@ export default {
         paragraph :'',
         image :'',
         status :'',
-        ordering :'',
       }),
     }
   },
@@ -172,14 +162,14 @@ export default {
     }
   },
   mounted() {
-    document.title = 'Gallery List | Baitulaman';
+    document.title = 'Slider List | Baitulaman';
     this.getAllGallery();
   },
   methods: {
     getAllGallery(){
       this.isLoading = true;
-      axios.get(baseurl + 'api/gallery?page='+ this.pagination.current_page).then((response)=>{
-        this.galleries = response.data.data;
+      axios.get(baseurl + 'api/sliders?page='+ this.pagination.current_page).then((response)=>{
+        this.sliders = response.data.data;
         this.pagination = response.data.meta;
         this.isLoading = false;
       }).catch((error)=>{
@@ -187,8 +177,8 @@ export default {
       })
     },
     searchData(){
-      axios.get(baseurl + "api/search/gallery/" + this.query + "?page=" + this.pagination.current_page).then(response => {
-        this.galleries = response.data.data;
+      axios.get(baseurl + "api/search/sliders/" + this.query + "?page=" + this.pagination.current_page).then(response => {
+        this.sliders = response.data.data;
         this.pagination = response.data.meta;
       }).catch(e => {
         this.isLoading = false;
@@ -210,7 +200,7 @@ export default {
     },
     store(){
       this.form.busy = true;
-      this.form.post(baseurl + "api/gallery").then(response => {
+      this.form.post(baseurl + "api/sliders").then(response => {
         this.form.reset();
         this.form.clear();
         $("#SliderModal").modal("hide");
@@ -228,7 +218,7 @@ export default {
     },
     update(){
       this.form.busy = true;
-      this.form.put(baseurl + "api/gallery/" + this.form.id).then(response => {
+      this.form.put(baseurl + "api/sliders/" + this.form.id).then(response => {
         $("#SliderModal").modal("hide");
         this.getAllGallery();
       }).catch(e => {
@@ -248,11 +238,11 @@ export default {
       if (img.length > 100) {
         return this.form.image;
       } else {
-        return window.location.origin + "/images/gallery/" + this.form.image;
+        return window.location.origin + "/images/slider/" + this.form.image;
       }
     },
     tableImage(image) {
-      return window.location.origin + "/images/gallery/" + image;
+      return window.location.origin + "/images/slider/" + image;
     },
     destroy(id) {
       Swal.fire({
@@ -265,7 +255,7 @@ export default {
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.delete('api/gallery/' + id).then((response) => {
+          axios.delete('api/sliders/' + id).then((response) => {
             this.getAllGallery();
             Swal.fire(
                 'Deleted!',
