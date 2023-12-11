@@ -189,7 +189,7 @@ Route::get('get-ramadan-calendar', [\App\Http\Controllers\Api\Frontend\FrontCont
 Route::get('get-our-program', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getOurProgram']);
 Route::get('get-program-details', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getOurProgramDetails']);
 Route::get('get-our-events', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getOurEvents']);
-Route::get('get-home-page-slider', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getHomePageSlider']);
+Route::get('get-static-slider', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getHomePageSlider']);
 Route::get('get-our-gallery', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getOurGallery']);
 Route::get('get-testimonial', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getTestimonial']);
 Route::get('get-donation-menu', [\App\Http\Controllers\Api\Frontend\FrontController::class, 'getDonationMenu']);

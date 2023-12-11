@@ -14,7 +14,6 @@ class WebMenuController extends Controller
     public function index()
     {
         $webmenus = WebMenu::latest()->paginate(10);
-
         return new WebmenuCollection($webmenus);
     }
 

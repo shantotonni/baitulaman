@@ -6,6 +6,7 @@ Route::get('/command', function() {
     Artisan::call('config:clear');
     Artisan::call('cache:clear');
     Artisan::call('config:cache');
+    Artisan::call('optimize');
     return 'DONE';
 });
 

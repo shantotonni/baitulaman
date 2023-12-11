@@ -86,7 +86,7 @@ class FrontController extends Controller
         return new EventCollection($events);
     }
 
-    public function getHomePageSlider(){
+    public function getHomePageSlider(Request $request){
         $slider = Slider::query()->first();
         return response()->json([
            'slider' => $slider
