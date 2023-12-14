@@ -184,6 +184,7 @@ class FrontController extends Controller
             'email'=>'required',
             'subject'=>'required',
             'message'=>'required',
+            'capture'=>'required',
         ]);
 
         $question = new Question();

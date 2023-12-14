@@ -15,6 +15,7 @@ class PaymentController extends Controller
             'email' => 'required',
             'mobile' => 'required',
             'amount' => 'required',
+            'donation_for' => 'required',
         ]);
         DB::beginTransaction();
 
@@ -64,6 +65,7 @@ class PaymentController extends Controller
                 $donate->email = $request->email;
                 $donate->mobile = $request->mobile;
                 $donate->amount = $request->amount;
+                $donate->donation_for = $request->donation_for;
                 $donate->ref_num = $data->ref_num;
                 $donate->payment_method_details = $data->payment_method_details;
                 $donate->payment_id = $data->id;
