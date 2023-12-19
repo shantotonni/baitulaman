@@ -12,12 +12,14 @@ class DonationCollection extends ResourceCollection
             'data'=>$this->collection->transform(function ($donation){
                 return [
                     'id'=>$donation->id,
-                    'purpose'=>$donation->purpose,
+                    'purpose'=>$donation->donation_for,
                     'amount'=>$donation->amount,
                     'date'=>date('Y-m-d',strtotime($donation->created_at)),
                     'name'=>$donation->name,
                     'email'=>$donation->email,
                     'mobile'=>$donation->mobile,
+                    'payment_id'=>$donation->payment_id,
+                    'currency'=>$donation->currency,
                 ];
             })
         ];

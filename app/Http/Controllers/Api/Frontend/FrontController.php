@@ -81,6 +81,13 @@ class FrontController extends Controller
         ]);
     }
 
+    public function getOurProgramDetails(Request $request){
+        $program_details = Program::where('id',$request->id)->first();
+        return response()->json([
+            'details' => $program_details
+        ]);
+    }
+
     public function getOurEvents(){
         $events = Event::orderBy('created_at','desc')->get();
         return new EventCollection($events);
@@ -109,13 +116,6 @@ class FrontController extends Controller
         $menus = WebMenu::orderBy('ordering','asc')->where('active','Y')->get();
         return response()->json([
             'menus' => $menus
-        ]);
-    }
-
-    public function getOurProgramDetails(Request $request){
-        $program_details = Program::where('id',$request->id)->first();
-        return response()->json([
-            'details' => $program_details
         ]);
     }
 
@@ -182,6 +182,7 @@ class FrontController extends Controller
         $this->validate($request,[
             'name'=>'required',
             'email'=>'required',
+            'mobile'=>'required',
             'subject'=>'required',
             'message'=>'required',
             'capture'=>'required',
@@ -190,6 +191,7 @@ class FrontController extends Controller
         $question = new Question();
         $question->name = $request->name;
         $question->email = $request->email;
+        $question->mobile = $request->mobile;
         $question->subject = $request->subject;
         $question->message = $request->message;
         $question->status = 'pending';
@@ -227,21 +229,41 @@ class FrontController extends Controller
     public function storeMaktabRegistration(Request $request){
         $this->validate($request,[
             'name'=>'required',
-            'email'=>'required',
-            'phone'=>'required',
+            'gender'=>'required',
+            'date_of_birth'=>'required',
             'age'=>'required',
+            'previous_education'=>'required',
+            'father_name'=>'required',
+            'mother_name'=>'required',
+            'address'=>'required',
+            'father_email'=>'required',
+            'father_phone'=>'required',
+            'mother_phone'=>'required',
+            'medical_condition'=>'required',
+            'emergency_contact_name'=>'required',
+            'emergency_contact_number'=>'required',
+            'relation_to_student'=>'required',
+            'apply'=>'required',
         ]);
 
         $maktab = new Maktab();
         $maktab->name = $request->name;
-        $maktab->email = $request->email;
-        $maktab->phone = $request->phone;
+        $maktab->gender = $request->gender;
+        $maktab->date_of_birth = $request->date_of_birth;
         $maktab->age = $request->age;
+        $maktab->previous_education = $request->previous_education;
+        $maktab->previous_education_details = $request->previous_education_details;
         $maktab->father_name = $request->father_name;
+        $maktab->mother_name = $request->mother_name;
+        $maktab->address = $request->address;
         $maktab->father_email = $request->father_email;
+        $maktab->father_phone = $request->father_phone;
+        $maktab->mother_phone = $request->mother_phone;
+        $maktab->medical_condition = $request->medical_condition;
         $maktab->emergency_contact_name = $request->emergency_contact_name;
         $maktab->relation_to_student = $request->relation_to_student;
         $maktab->emergency_contact_number = $request->emergency_contact_number;
+        $maktab->apply = $request->apply;
         $maktab->save();
         return response()->json([
             'status'=>'success',
@@ -255,6 +277,9 @@ class FrontController extends Controller
             'email'=>'required',
             'phone'=>'required',
             'age'=>'required',
+            'gender'=>'required',
+            'address'=>'required',
+            'date_of_birth'=>'required',
         ]);
 
         $member = new Membership();
@@ -262,6 +287,9 @@ class FrontController extends Controller
         $member->email = $request->email;
         $member->phone = $request->phone;
         $member->age = $request->age;
+        $member->address = $request->address;
+        $member->gender = $request->gender;
+        $member->date_of_birth = $request->date_of_birth;
         $member->father_name = $request->father_name;
         $member->father_email = $request->father_email;
         $member->save();

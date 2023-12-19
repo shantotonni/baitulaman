@@ -35,6 +35,9 @@
                       <th>Email</th>
                       <th>Phone</th>
                       <th>Age</th>
+                      <th>Gender</th>
+                      <th>Address</th>
+                      <th>Date of Birth</th>
                       <th>Father name</th>
                       <th>Father Email</th>
                     </tr>
@@ -46,6 +49,9 @@
                       <td class="text-left">{{ member.email }}</td>
                       <td class="text-left">{{ member.phone }}</td>
                       <td class="text-left">{{ member.age }}</td>
+                      <td class="text-left">{{ member.gender }}</td>
+                      <td class="text-left">{{ member.address }}</td>
+                      <td class="text-left">{{ member.date_of_birth }}</td>
                       <td class="text-left">{{ member.father_name }}</td>
                       <td class="text-left">{{ member.father_email }}</td>
                     </tr>
@@ -137,7 +143,7 @@ export default {
                 let title = item.replace(rex, '$1$4 $2$3$5')
                 return {title, key: item}
               });
-              bus.$emit('data-table-import', dataSets, columns, 'Customer List')
+              bus.$emit('data-table-import', dataSets, columns, 'Member List')
             }
           }).catch((error)=>{
       })

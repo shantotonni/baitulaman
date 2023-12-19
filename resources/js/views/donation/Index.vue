@@ -36,6 +36,7 @@
                         <th>Email</th>
                         <th>Mobile</th>
                         <th>Purpose</th>
+                        <th>Payment ID</th>
                         <th>Amount</th>
                       </tr>
                     </thead>
@@ -46,7 +47,8 @@
                         <td class="text-center">{{ donate.email }}</td>
                         <td class="text-center">{{ donate.mobile }}</td>
                         <td class="text-center">{{ donate.purpose }}</td>
-                        <td class="text-center">{{ donate.amount }}</td>
+                        <td class="text-center">{{ donate.payment_id }}</td>
+                        <td class="text-right">{{ donate.amount }}</td>
                       </tr>
                     </tbody>
                   </table>

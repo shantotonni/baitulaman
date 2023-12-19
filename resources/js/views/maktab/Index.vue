@@ -32,28 +32,47 @@
                     <tr>
                       <th>SN</th>
                       <th>Name</th>
-                      <th>Email</th>
-                      <th>Phone</th>
+                      <th>Gender</th>
                       <th>Age</th>
-                      <th>Father name</th>
+                      <th>Date of Birth</th>
+                      <th>Previous Education</th>
+                      <th>Previous Education Details</th>
+                      <th>Father`s name</th>
+                      <th>Mother`s name</th>
+                      <th>Address</th>
                       <th>Father Email</th>
+                      <th>Father`s Phone</th>
+                      <th>Mother`s Phone</th>
+                      <th>Medical Condition</th>
                       <th>Emergency contact name</th>
                       <th>Relation to student</th>
                       <th>Emergency contact number</th>
+                      <th>Tick all that apply</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="(member, i) in maktab" :key="member.id" v-if="maktab.length">
                       <th class="text-center" scope="row">{{ ++i }}</th>
                       <td class="text-left">{{ member.name }}</td>
-                      <td class="text-left">{{ member.email }}</td>
-                      <td class="text-left">{{ member.phone }}</td>
+                      <td class="text-left">{{ member.gender }}</td>
                       <td class="text-left">{{ member.age }}</td>
+                      <td class="text-left">{{ member.date_of_birth }}</td>
+                      <td class="text-left">{{ member.previous_education }}</td>
+                      <td class="text-left">{{ member.previous_education_details }}</td>
                       <td class="text-left">{{ member.father_name }}</td>
+                      <td class="text-left">{{ member.mother_name }}</td>
+                      <td class="text-left">{{ member.address }}</td>
                       <td class="text-left">{{ member.father_email }}</td>
+                      <td class="text-left">{{ member.father_phone }}</td>
+                      <td class="text-left">{{ member.mother_phone }}</td>
+                      <td class="text-left">{{ member.medical_condition }}</td>
                       <td class="text-left">{{ member.emergency_contact_name }}</td>
                       <td class="text-left">{{ member.relation_to_student }}</td>
                       <td class="text-left">{{ member.emergency_contact_number }}</td>
+                      <td class="text-left">
+                      <span v-if="member.apply === 1">Yes</span>
+                      <span v-else>No</span>
+                      </td>
                     </tr>
                     </tbody>
                   </table>
@@ -139,7 +158,7 @@ export default {
                 let title = item.replace(rex, '$1$4 $2$3$5')
                 return {title, key: item}
               });
-              bus.$emit('data-table-import', dataSets, columns, 'Customer List')
+              bus.$emit('data-table-import', dataSets, columns, 'Maktab List')
             }
           }).catch((error)=>{
       })
