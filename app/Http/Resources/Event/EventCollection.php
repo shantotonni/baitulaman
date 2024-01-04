@@ -6,12 +6,6 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class EventCollection extends ResourceCollection
 {
-    /**
-     * Transform the resource collection into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
-     */
     public function toArray($request)
     {
         return [
@@ -20,8 +14,8 @@ class EventCollection extends ResourceCollection
                     'id'=>$event->id,
                     'title'=>$event->title,
                     'description'=>$event->description,
-                    'event_date'=> date('Y-m-d',strtotime($event->event_date)),
-                    'event_time'=> date('h:i:s',strtotime($event->event_date)),
+                    'event_date'=> date('D, d M Y',strtotime($event->event_date)),
+                    'event_time'=> $event->event_time,
                     'ordering'=>$event->ordering,
                     'status'=>$event->status,
                     'image'=>$event->image,

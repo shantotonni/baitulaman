@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Api\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Blog\BlogCollection;
 use App\Http\Resources\Event\EventCollection;
 use App\Http\Resources\GalleryCollection;
+use App\Http\Resources\Program\ProgramCollection;
 use App\Models\Advisors;
 use App\Models\AskTheBoard;
+use App\Models\Blog;
 use App\Models\Contact;
 use App\Models\Event;
 use App\Models\Gallery;
@@ -24,6 +27,7 @@ use App\Models\SubCommittee;
 use App\Models\Testimonial;
 use App\Models\Volunteer;
 use App\Models\WebMenu;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
@@ -75,9 +79,17 @@ class FrontController extends Controller
     }
 
     public function getOurProgram(){
-        $our_program = Program::orderBy('ordering','desc')->get();
+        $current_date = Carbon::now()->format('Y-m-d');
+        $current_program = Program::orderBy('ordering','desc')
+            ->where('program_date','>=',$current_date)
+            ->get();
+        $previous_program = Program::orderBy('ordering','desc')
+            ->where('program_date','<=',$current_date)
+            ->get();
+
         return response()->json([
-            'our_programs' => $our_program
+            'current_program'=>new ProgramCollection($current_program),
+            'previous_program'=>new ProgramCollection($previous_program)
         ]);
     }
 
@@ -89,8 +101,22 @@ class FrontController extends Controller
     }
 
     public function getOurEvents(){
-        $events = Event::orderBy('created_at','desc')->get();
-        return new EventCollection($events);
+        $current_date = Carbon::now()->format('Y-m-d');
+        $current_events = Event::orderBy('ordering','asc')
+            ->where('event_date','>=',$current_date)
+            ->get();
+        $previous_events = Event::orderBy('ordering','asc')
+            ->where('event_date','<=',$current_date)
+            ->get();
+        return response()->json([
+            'current_events' => new EventCollection($current_events),
+            'previous_events' => new EventCollection($previous_events)
+        ]);
+    }
+
+    public function getOurBlog(){
+        $blogs = Blog::where('status','Active')->orderBy('created_at','desc')->get();
+        return new BlogCollection($blogs);
     }
 
     public function getHomePageSlider(Request $request){
@@ -112,8 +138,8 @@ class FrontController extends Controller
         ]);
     }
 
-    public function getDonationMenu(){
-        $menus = WebMenu::orderBy('ordering','asc')->where('active','Y')->get();
+    public function getFrontendMenu(){
+        $menus = WebMenu::orderBy('ordering','asc')->with('sub_menu')->where('active','Y')->get();
         return response()->json([
             'menus' => $menus
         ]);
@@ -203,8 +229,7 @@ class FrontController extends Controller
         ]);
     }
 
-
-   public function askTheBoard(Request $request){
+    public function askTheBoard(Request $request){
         $this->validate($request,[
             'name'=>'required',
             'email'=>'required',

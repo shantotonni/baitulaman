@@ -32,6 +32,8 @@ class ProgramController extends Controller
         $program->title = $request->title;
         $program->description = $request->description;
         $program->ordering = $request->ordering;
+        $program->program_date = date('Y-m-d',strtotime($request->program_date));
+        $program->program_time = $request->program_time;
         $program->image = $name;
         $program->status =  $request->status;
         $program->save();
@@ -55,7 +57,7 @@ class ProgramController extends Controller
                     }
                 }
                 $name = uniqid() . time() . '.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
-                Image::make($image)->resize(1600,1000)->save(public_path('images/program/') . $name);
+                Image::make($image)->save(public_path('images/program/') . $name);
             } else {
                 $name = $program->image;
             }
@@ -66,6 +68,8 @@ class ProgramController extends Controller
         $program->title = $request->title;
         $program->description = $request->description;
         $program->ordering = $request->ordering;
+        $program->program_date = date('Y-m-d',strtotime($request->program_date));
+        $program->program_time = $request->program_time;
         $program->image = $name;
         $program->status =  $request->status;
         $program->save();

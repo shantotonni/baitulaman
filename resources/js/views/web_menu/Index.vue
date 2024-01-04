@@ -18,7 +18,7 @@
                   <div class="card-tools">
                     <button type="button" class="btn btn-success btn-sm" @click="createWebmenu">
                       <i class="fas fa-plus"></i>
-                      Add Webmenu
+                      Add Web menu
                     </button>
                     <button type="button" class="btn btn-primary btn-sm" @click="reload">
                       <i class="fas fa-sync"></i>
@@ -76,7 +76,7 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>Web menu Nmae</label>
+                      <label>Web menu Name</label>
                       <input type="text" name="name" v-model="form.name" class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
                       <div class="error" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
                     </div>
@@ -86,6 +86,13 @@
                       <label>URL</label>
                       <input type="text" name="url" v-model="form.url" class="form-control" :class="{ 'is-invalid': form.errors.has('url') }">
                       <div class="error" v-if="form.errors.has('url')" v-html="form.errors.get('url')" />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Ordering</label>
+                      <input type="number" name="ordering" v-model="form.ordering" class="form-control" :class="{ 'is-invalid': form.errors.has('ordering') }">
+                      <div class="error" v-if="form.errors.has('ordering')" v-html="form.errors.get('ordering')" />
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -131,6 +138,7 @@ export default {
         name :'',
         url :'',
         active :'',
+        ordering :'',
       }),
     }
   },

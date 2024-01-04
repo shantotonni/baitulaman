@@ -6,6 +6,7 @@ use App\Http\Resources\DonationCollection;
 use App\Models\Donation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
@@ -55,7 +56,7 @@ class PaymentController extends Controller
             if ($err) {
                 return response()->json([
                     'status' => 'error',
-                    'error' => $err
+                    'message' => $err
                 ]);
             } else {
                 $data = json_decode($response);
@@ -73,6 +74,19 @@ class PaymentController extends Controller
                 $donate->auth_code = $data->auth_code;
                 $donate->status = $data->status;
                 $donate->save();
+
+                $details = [
+                    'title' => 'Mail from Baitulaman',
+                    'body' => 'Your Payment Amount '. $request->amount
+                ];
+
+                $user_mail = $request->email;
+
+                Mail::send('mail.payment',$details,function ($message) use($user_mail){
+                    $message->to($user_mail);
+                    $message->subject('Payment Confirmation Mail');
+                });
+                //Mail::to($request->email)->send(new \App\Mail\PaymentMail($details));
 
                 DB::commit();
                 return response()->json([

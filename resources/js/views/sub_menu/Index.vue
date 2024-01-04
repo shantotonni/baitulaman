@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="container-fluid">
-      <breadcrumb :options="['Web Menu']"/>
+      <breadcrumb :options="['Web Menu Sub']"/>
       <div class="row">
         <div class="col-xl-12">
           <div class="card">
@@ -34,34 +34,35 @@
                       <th>Web Menu </th>
                       <th>Web Sub Menu </th>
                       <th>Web Icon</th>
+                      <th>Web URL</th>
                       <th>Slug</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(submenu, i) in submenus"
-                        :key="submenu.id"
-                        v-if="submenus.length">
+                    <tr v-for="(submenu, i) in submenus" :key="submenu.id" v-if="submenus.length">
                       <th class="text-center" scope="row">{{ ++i }}</th>
                       <td class="text-left">{{ submenu.menu_name }}</td>
                       <td class="text-left">{{ submenu.name }}</td>
                       <td class="text-left">{{ submenu.icon }}</td>
+                      <td class="text-left">{{ submenu.url }}</td>
                       <td class="text-left">{{ submenu.slug }}</td>
                       <td class="text-left">{{ submenu.active }}</td>
                       <td class="text-center">
-                        <button @click="edit(submenu)" class="btn btn-success btn-sm">
-                          <i
-                              class="far fa-edit"></i></button>
-                        <button @click="destroy(submenu.id)"
-                                class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>
-                        </button>
+                        <button @click="edit(submenu)" class="btn btn-success btn-sm"><i class="far fa-edit"></i></button>
+                        <button @click="destroy(submenu.id)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                       </td>
                     </tr>
                     </tbody>
                   </table>
                   <br>
-
+                  <pagination
+                      v-if="pagination.last_page > 1"
+                      :pagination="pagination"
+                      :offset="5"
+                      @paginate="query === '' ? getAllWebSubMenu() : searchData()"
+                  ></pagination>
                 </div>
               </div>
             </div>
@@ -95,13 +96,6 @@
                       <div class="error" v-if="form.errors.has('menu_id')" v-html="form.errors.get('menu_id')"/>
                     </div>
                   </div>
-<!--                  <div class="col-md-6">-->
-<!--                    <div class="form-group">-->
-<!--                      <label>Web menu</label>-->
-<!--                      <input type="int" name="menu_id" v-model="form.menu_id" class="form-control" :class="{ 'is-invalid': form.errors.has('menu_id') }">-->
-<!--                      <div class="error" v-if="form.errors.has('menu_id')" v-html="form.errors.get('menu_id')" />-->
-<!--                    </div>-->
-<!--                  </div>-->
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Web Sub menu</label>
@@ -119,19 +113,12 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Status</label>
-                      <select type="active" name="active" v-model="form.active"
-                              class="form-control"
-                              :class="{ 'is-invalid': form.errors.has('active') }">
+                      <select type="active" name="active" v-model="form.active" class="form-control" :class="{ 'is-invalid': form.errors.has('active') }">
                         <option disabled value="">Select Status</option>
-                        <option >
-                          Active
-                        </option>
-                        <option >
-                          Inactive
-                        </option>
+                        <option value="Y">Active</option>
+                        <option value="N">Inactive</option>
                       </select>
-                      <div class="error" v-if="form.errors.has('active')"
-                           v-html="form.errors.get('active')"/>
+                      <div class="error" v-if="form.errors.has('active')" v-html="form.errors.get('active')"/>
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -141,12 +128,19 @@
                       <div class="error" v-if="form.errors.has('url')" v-html="form.errors.get('url')" />
                     </div>
                   </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Sub Menu Order</label>
+                      <input type="number" name="ordering" v-model="form.ordering" class="form-control" :class="{ 'is-invalid': form.errors.has('ordering') }">
+                      <div class="error" v-if="form.errors.has('ordering')" v-html="form.errors.get('ordering')" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="closeModal">Close</button>
-              <button :disabled="form.busy" type="submit" class="btn btn-primary">{{ editMode ? "Update" : "Create" }} Submenu</button>
+              <button :disabled="form.busy" type="submit" class="btn btn-primary">{{ editMode ? "Update" : "Create" }} Sub menu</button>
             </div>
           </form>
         </div>
@@ -176,6 +170,7 @@ export default {
         active :'',
         url :'',
         menu_id :'',
+        ordering :'',
       }),
     }
   },

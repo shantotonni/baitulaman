@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="container-fluid">
-      <breadcrumb :options="['Advisory Board']"/>
+      <breadcrumb :options="['Founding Members']"/>
       <div class="row">
         <div class="col-xl-12">
           <div class="card">
@@ -18,7 +18,7 @@
                   <div class="card-tools">
                     <button type="button" class="btn btn-success btn-sm" @click="createAdvisor">
                       <i class="fas fa-plus"></i>
-                      Add Advisor
+                      Add Founding Members
                     </button>
                     <button type="button" class="btn btn-primary btn-sm" @click="reload">
                       <i class="fas fa-sync"></i>
@@ -75,7 +75,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title mt-0" id="myLargeModalLabel">{{ editMode ? "Edit" : "Add" }} Advisor</h5>
+            <h5 class="modal-title mt-0" id="myLargeModalLabel">{{ editMode ? "Edit" : "Add" }} Founding Members</h5>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true" @click="closeModal">×</button>
           </div>
           <form @submit.prevent="editMode ? update() : store()" @keydown="form.onKeydown($event)" >
@@ -116,7 +116,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="closeModal">Close</button>
-              <button :disabled="form.busy" type="submit" class="btn btn-primary">{{ editMode ? "Update" : "Create" }} Advisor</button>
+              <button :disabled="form.busy" type="submit" class="btn btn-primary">{{ editMode ? "Update" : "Create" }} Founding Members</button>
             </div>
           </form>
         </div>
@@ -162,7 +162,7 @@ export default {
     }
   },
   mounted() {
-    document.title = 'Advisory Board List | Baitulaman';
+    document.title = 'Founding Members List | Baitulaman';
     this.getAllAdvisor();
   },
   methods: {

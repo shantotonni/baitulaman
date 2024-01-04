@@ -15,7 +15,6 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::orderBy('id','desc')->paginate(15);
-
         return new EventCollection($events);
     }
 
@@ -32,7 +31,8 @@ class EventController extends Controller
         $event = new Event();
         $event->title = $request->title;
         $event->description = $request->description;
-        $event->event_date = date('Y-m-d H:i:s',strtotime($request->event_date));
+        $event->event_date = date('Y-m-d',strtotime($request->event_date));
+        $event->event_time = $request->event_time;
         $event->ordering = $request->ordering;
         $event->image = $name;
         $event->status =  $request->status;
@@ -57,7 +57,7 @@ class EventController extends Controller
                     }
                 }
                 $name = uniqid() . time() . '.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
-                Image::make($image)->resize(1600,1000)->save(public_path('images/event/') . $name);
+                Image::make($image)->save(public_path('images/event/') . $name);
             } else {
                 $name = $event->image;
             }
@@ -67,7 +67,8 @@ class EventController extends Controller
 
         $event->title = $request->title;
         $event->description = $request->description;
-        $event->event_date = date('Y-m-d H:i:s',strtotime($event->event_date));
+        $event->event_date = date('Y-m-d',strtotime($request->event_date));
+        $event->event_time = $request->event_time;
         $event->ordering = $request->ordering;
         $event->image = $name;
         $event->status =  $request->status;

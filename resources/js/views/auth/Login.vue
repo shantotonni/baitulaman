@@ -50,6 +50,9 @@ export default {
       return moment()
     }
   },
+  mounted() {
+    document.title = 'Login | Baitulaman';
+  },
   methods: {
     onSubmit() {
       this.$store.commit('submitButtonLoadingStatus', true);

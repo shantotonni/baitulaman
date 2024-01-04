@@ -120,9 +120,9 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Order</label>
-                                            <input type="number" name="Ordering" v-model="form.Ordering" class="form-control" :class="{ 'is-invalid': form.errors.has('Ordering') }">
-                                            <div class="error" v-if="form.errors.has('Ordering')" v-html="form.errors.get('Ordering')" />
+                                            <label>Menu Order</label>
+                                            <input type="number" name="ordering" v-model="form.ordering" class="form-control" :class="{ 'is-invalid': form.errors.has('ordering') }">
+                                            <div class="error" v-if="form.errors.has('ordering')" v-html="form.errors.get('ordering')" />
                                         </div>
                                     </div>
                                 </div>
@@ -161,7 +161,7 @@ export default {
                 Icon: '',
                 Link: '',
                 Status: '',
-                Ordering: '',
+                ordering: '',
             }),
             query: "",
             editMode: false,

@@ -34,39 +34,31 @@
                         <th>Event Name</th>
                         <th>Image</th>
                         <th>Event Date</th>
+                        <th>Event Time</th>
                         <th>Order</th>
                         <th>Status</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(event, i) in events"
-                        :key="event.id"
-                        v-if="events.length">
+                    <tr v-for="(event, i) in events" :key="event.id" v-if="events.length">
                       <th class="text-center" scope="row">{{ ++i }}</th>
                       <td class="text-left">{{ event.title }}</td>
                       <td class="text-center">
-                        <img v-if="event.image" height="40" width="40"
-                             :src="tableImage(event.image)" alt="">
+                        <img v-if="event.image" height="40" width="40" :src="tableImage(event.image)" alt="">
                       </td>
                       <td class="text-right">{{ event.event_date }}</td>
+                      <td class="text-right">{{ event.event_time }}</td>
                       <td class="text-right">{{ event.ordering }}</td>
                       <td class="text-left">{{ event.status }}</td>
                       <td class="text-center">
                         <router-link :to="`event-details/${event.id}`" class="btn btn-primary btn-sm btn-xs"><i class="far fa-eye"></i></router-link>
-
-                        <button @click="edit(event)" class="btn btn-success btn-sm">
-                          <i
-                              class="far fa-edit"></i></button>
-                        <button @click="destroy(event.id)"
-                                class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>
-                        </button>
+                        <button @click="edit(event)" class="btn btn-success btn-sm"><i class="far fa-edit"></i></button>
+                        <button @click="destroy(event.id)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                       </td>
                     </tr>
                     </tbody>
                   </table>
-                  <br>
-
                 </div>
               </div>
             </div>
@@ -106,46 +98,35 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Status</label>
-                      <select type="Status" name="status" v-model="form.status"
-                              class="form-control"
-                              :class="{ 'is-invalid': form.errors.has('status') }">
+                      <select type="Status" name="status" v-model="form.status" class="form-control" :class="{ 'is-invalid': form.errors.has('status') }">
                         <option disabled value="">Select Status</option>
-                        <option >
-                          Active
-                        </option>
-                        <option >
-                          Inactive
-                        </option>
+                        <option >Active</option>
+                        <option >Inactive</option>
                       </select>
-                      <div class="error" v-if="form.errors.has('status')"
-                           v-html="form.errors.get('status')"/>
+                      <div class="error" v-if="form.errors.has('status')" v-html="form.errors.get('status')"/>
                     </div>
                   </div>
 
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Event Date</label>
-                      <datepicker name="From hour"
-                                  placeholder="Enter To Date"
-                                  :format="customFormatter"
-                                  v-model="form.event_date"
-                                  class="form-control"
-                                  :class="{ 'is-invalid': form.errors.has('event_date') }"> </datepicker>
-
-                      <div class="error" v-if="form.errors.has('event_date')"
-                           v-html="form.errors.get('event_date')"/>
+                      <datepicker :format="customFormatter" v-model="form.event_date" input-class="form-control" :class="{ 'is-invalid': form.errors.has('event_date') }"></datepicker>
+                      <div class="error" v-if="form.errors.has('event_date')" v-html="form.errors.get('event_date')"/>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Event Time</label>
+                      <input class="form-control" type="time" v-model="form.event_time" :class="{ 'is-invalid': form.errors.has('event_date') }">
+                      <div class="error" v-if="form.errors.has('event_time')" v-html="form.errors.get('event_time')"/>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Image <small>(Image type:jpeg,jpg,png,svg)</small></label>
-                      <input @change="changeImage($event)" type="file" name="image"
-                             class="form-control"
-                             :class="{ 'is-invalid': form.errors.has('image') }">
-                      <div class="error" v-if="form.errors.has('image')"
-                           v-html="form.errors.get('image')"/>
-                      <img v-if="form.image" :src="showImage(form.image)" alt="" height="40px"
-                           width="40px">
+                      <input @change="changeImage($event)" type="file" name="image" class="form-control" :class="{ 'is-invalid': form.errors.has('image') }">
+                      <div class="error" v-if="form.errors.has('image')" v-html="form.errors.get('image')"/>
+                      <img v-if="form.image" :src="showImage(form.image)" alt="" height="40px" width="40px">
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -180,7 +161,6 @@ export default {
   components: {
     VueEditor,
     Datepicker
-
   },
   data() {
     return {
@@ -195,7 +175,8 @@ export default {
         id :'',
         title :'',
         description :'',
-        event_date :'',
+        event_date : moment().format('yyyy-MM-DD'),
+        event_time : moment().format("HH:mm"),
         image :'',
         status :'',
         ordering :'',
@@ -315,7 +296,7 @@ export default {
       })
     },
     customFormatter(date) {
-      return moment(date).format('YYYY MM DD ');
+      return moment(date).format('YYYY-MM-DD ');
     },
   },
 }

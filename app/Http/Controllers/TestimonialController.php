@@ -50,7 +50,7 @@ class TestimonialController extends Controller
                     }
                 }
                 $name = uniqid() . time() . '.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
-                Image::make($image)->resize(1600,1000)->save(public_path('images/testimonial/') . $name);
+                Image::make($image)->save(public_path('images/testimonial/') . $name);
             } else {
                 $name = $testimonial->image;
             }

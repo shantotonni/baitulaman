@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="container-fluid">
-      <breadcrumb :options="['Sub Committee']"/>
+      <breadcrumb :options="['Board']"/>
       <div class="row">
         <div class="col-xl-12">
           <div class="card">
@@ -18,7 +18,7 @@
                   <div class="card-tools">
                     <button type="button" class="btn btn-success btn-sm" @click="createAdvisor">
                       <i class="fas fa-plus"></i>
-                      Add Sub Committee
+                      Add Board
                     </button>
                     <button type="button" class="btn btn-primary btn-sm" @click="reload">
                       <i class="fas fa-sync"></i>
@@ -75,7 +75,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title mt-0" id="myLargeModalLabel">{{ editMode ? "Edit" : "Add" }} Sub Committee</h5>
+            <h5 class="modal-title mt-0" id="myLargeModalLabel">{{ editMode ? "Edit" : "Add" }} Board</h5>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true" @click="closeModal">×</button>
           </div>
           <form @submit.prevent="editMode ? update() : store()" @keydown="form.onKeydown($event)" >
@@ -115,7 +115,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="closeModal">Close</button>
-              <button :disabled="form.busy" type="submit" class="btn btn-primary">{{ editMode ? "Update" : "Create" }} Sub Committee</button>
+              <button :disabled="form.busy" type="submit" class="btn btn-primary">{{ editMode ? "Update" : "Create" }} Board</button>
             </div>
           </form>
         </div>
@@ -161,7 +161,7 @@ export default {
     }
   },
   mounted() {
-    document.title = 'Sub Committee List | Baitulaman';
+    document.title = 'Board List | Baitulaman';
     this.getAllAdvisor();
   },
   methods: {

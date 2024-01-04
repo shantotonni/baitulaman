@@ -11,4 +11,8 @@ class WebMenu extends Model
     protected $table = "web_menu";
     protected $primaryKey = "id";
     protected $guarded = [];
+
+    public function sub_menu(){
+        return $this->hasMany(WebSubMenu::class,'menu_id','id')->where('active','Y');
+    }
 }
